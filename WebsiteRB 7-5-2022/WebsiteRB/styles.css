@@ -1,0 +1,294 @@
+/* Colors
+#d9dcd6 - white (gainsboro)
+#181a1b - black (eerie black)
+#a515b5 - purple (purple munsell)
+#d2263d - red (crimson)
+#0085b9 - blue (blue ncs)
+#979797 - grey (spanish grey)
+*/
+
+/* =============
+   global styles
+   ============= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+
+
+/* ==============
+   navigation bar
+   ============== */
+
+nav {
+    background: #181A1B;
+    height: 60px;
+    width: 100%;
+}
+
+nav ul {
+    float: left;
+    list-style: none;
+    border-bottom: 1px solid #979797;
+    width: 100%;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 60px;
+    margin: 0 5px;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+nav ul li a:link {
+    color: #0085b9;
+}
+
+nav ul li a:visited {
+    color: #0085b9;
+}
+
+nav ul li a:hover {
+    color: #d9dcd6;
+}
+
+div.nav-menu {
+    text-align: center;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: #0085b9;
+    line-height: 60px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+/* mobile nav menu (would like to disable scrolling when nav menu open, but i think its impossible without javascript) */
+@media (max-width: 500px) {
+    .checkbtn {
+        display: block;
+        border-bottom: 1px solid #979797;
+    }
+    nav ul {
+        position: absolute;
+        width: 100%;
+        background: #181a1b;
+        /* nav menu from top */
+        height: calc(100% - 60px);
+        bottom: 100%;
+        /* nav menu from right
+        top: 60px;
+        height: 100vh;
+        left: 100%; */
+        text-align: center;
+        transition: all .3s;
+    }
+    nav ul li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    nav ul li a {
+        font-size: 1.7em;
+    }
+    #check:checked ~ ul {
+        /* left: 0; nav menu from right */
+        bottom: 0; /* nav menu from top */
+    }
+}
+
+
+
+/* ======
+   layout
+   ====== */
+
+body {
+    background-color: #181a1b;
+    font-family: sans-serif;
+}
+
+/* width settings */
+
+main {
+    width: 575px;
+    max-width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 75px;
+}
+
+main.index-main {
+    /* makes index main more narrow */
+    padding: 0px 100px 75px 100px;
+}
+
+@media (max-width: 450px) {
+    /* fixes index settings for mobile */
+    main.index-main {
+    padding: 0px 0px 75px 0px;
+}
+}
+
+
+
+/* ===========
+   typography
+   =========== */
+
+h1 {
+    color: #a515b5;
+    line-height: 1.7em;
+    padding: 3px 0px;
+    text-align: center;
+}
+
+h2 {
+    color: #d2263d;
+    line-height: 1.7em;
+    padding: 3px 0px;
+}
+
+h3 {
+    color: #d2263d;
+    line-height: 1.7em;
+    padding: 3px 0px;
+}
+
+p {
+    color: #d9dcd6;
+    line-height: 1.25em;
+    padding: 3px 0px;
+}
+
+p.not-found {
+    text-align: center;
+}
+
+ul {
+    color: #d9dcd6;
+}
+
+ul li {
+    line-height: 1.5em;
+    padding: 3px 0px;
+}
+
+ul.bullet li {
+    /* class for normal bullet point list */
+    list-style: inside;
+}
+
+ul.no-bullet li {
+    list-style: none;
+}
+
+strong {
+    color: #a515b5;
+}
+
+a:link {
+    color: #0085b9;
+}
+
+a:visited {
+    color: #0085b9;
+}
+
+a:hover {
+    color: #d9dcd6;
+}
+
+
+
+/* ==========
+   components
+   ========== */
+
+hr {
+    margin-bottom: 10px;
+    height: 1px;
+    border: none;
+    background-color: #979797;
+}
+
+/* buttons */
+
+.top-button {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.top-politics {
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.top-gaming {
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+/* images */
+
+img {
+    margin: 5px 0px;
+}
+
+figcaption {
+    text-align: center;
+}
+
+.gaming-banner {
+    max-width: 100%;
+}
+
+.yuzuru {
+    /* index page pfp */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.game {
+    /* game coverart image selector */
+    overflow: hidden;
+    max-height: 240px;
+    padding: 0 5px;
+    margin-top: 5px;
+}
+
+.game img {
+    max-width: 100%;
+}
+
+.lain-game {
+    padding-top: .6rem
+}
+
+.lain-game a {
+    font-size: 1.15rem;
+    /*
+    text-decoration: none; */
+}
+

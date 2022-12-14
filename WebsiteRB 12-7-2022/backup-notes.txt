@@ -1,0 +1,2 @@
+z-lib went down :c
+links no longer work so next versions are replacing with libgen
