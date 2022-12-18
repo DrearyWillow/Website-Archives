@@ -315,6 +315,13 @@ div.blog-header p.blog-dates {
     text-align: center;
 }
 
+div.blog-footnotes {
+    border: 1px solid #979797;
+    border-radius: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
 
 /* ==========
    components
