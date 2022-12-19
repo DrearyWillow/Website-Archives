@@ -245,6 +245,10 @@ p.not-found {
     text-align: center;
 }
 
+p.p-indent {
+    text-indent: 2rem;
+}
+
 ul {
     color: #d9dcd6;
 }
