@@ -259,6 +259,19 @@ center {
     padding: .25rem 0;
 }
 
+.webring-frag {
+    text-align: center;
+}
+
+.webring-frag p {
+    border: 1px solid #979797;
+    border-radius: 1rem;
+    display: inline;
+    line-height: 2rem;
+    font-size: 1rem;
+    padding: .4rem .7rem;
+}
+
 ul {
     color: #d9dcd6;
 }
@@ -440,6 +453,26 @@ hr {
     background-color: #C41BAE30;
     /*
     background-color: #5a5a5a30; */
+}
+
+.rss-btn {
+    text-align: center;
+    margin-top: .25rem;
+}
+
+.rss-btn a {
+    line-height: 2rem;
+    font-size: 1rem;
+    font-weight: 550;
+    text-decoration: none;
+    padding: .2rem .7rem;
+    border-radius: 2rem;
+    border: 2px solid #5e5e5edd;
+}
+
+.rss-btn a:hover, .rss-btn a:active {
+    color: #0085b9;
+    background-color: #C41BAE30;
 }
 
 /* images */
