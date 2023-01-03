@@ -349,6 +349,13 @@ div.blog-twitter {
     margin-bottom: 1rem;
 }
 
+div.blog-quote {
+    border-left: 6px solid #C41BAE;
+    padding-left: 2rem;
+    margin-left: .75rem;
+    
+}
+
 /* divider section for top of blog articles */
 
 div.blog-header {
