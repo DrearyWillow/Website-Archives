@@ -239,6 +239,12 @@ h3 {
     padding: .25rem 0;
 }
 
+/* h3 links appear normal */
+a h3 {
+    color: #C41BAE;
+    text-decoration: none;
+}
+
 p {
     color: #d9dcd6;
     line-height: 1.6rem;
