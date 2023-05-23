@@ -7,25 +7,8 @@
 #979797 - grey (spanish grey)
 #e54980 - pink (french rose)
 #f3adc6 - light pink (lavender pink)
-#C41BAE - purple (steel pink)
-#5e5e5e - medium grey (davy's gray)
+#C41BAE - purple (steel pink) [previously used header color]
 */
-
-/* =========
-   variables
-   ========= */
-
-/* using rgb values instead of hex codes allows me to use alpha transparency values with variables */
-
-:root {
-	--text: #d9dcd6; 				/* #d9dcd6 */
-	--background: #181a1b; 			/* #181a1b */
-	--header: 196, 27, 174; 		/* #c41bae */
-	--border: #979797; 				/* #979797 */
-	--accent: #0085b9; 				/* #0085b9 */
-	--highlight: #e54980;			/* #e54980 */
-	--button-border: 94, 94, 94;	/* #5e5e5e */
-}
 
 /* =============
    global styles
@@ -44,7 +27,7 @@
    =============== */
 
 nav.nav-bar {
-    background: var(--background);
+    background: #181A1B;
     height: 60px;
     width: 100%;
 }
@@ -52,7 +35,7 @@ nav.nav-bar {
 nav.nav-bar ul {
     float: left;
     list-style: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #979797;
     width: 100%;
 }
 
@@ -67,27 +50,26 @@ nav.nav-bar ul li a {
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: 550;
-    border: 2px solid rgba(var(--button-border), 0.87);
+    border: 2px solid #5e5e5edd;
     border-radius: 1rem;
     padding: 0rem .5rem;
     /*
-	border: 2px solid #5e5e5edd;
     background-color: #5e5e5e60;
     border-radius: .7rem;
     padding: 0rem .5rem; */
 }
 
 nav.nav-bar ul li a:link {
-    color: var(--accent);
+    color: #0085b9;
 }
 
 nav.nav-bar ul li a:visited {
-    color: var(--accent);
+    color: #0085b9;
 }
 
 nav.nav-bar ul li a:hover, nav.nav-bar ul li a:active {
-    color: var(--accent);
-    background-color: rgba(var(--header), 0.45);
+    color: #0085b9;
+    background-color: #C41BAE45;
     /* background-color: #5a5a5a40; */
 }
 
@@ -97,7 +79,7 @@ div.nav-menu {
 
 .checkbtn {
     font-size: 2rem;
-    color: var(--accent);
+    color: #0085b9;
     line-height: 60px;
     cursor: pointer;
     display: none;
@@ -111,12 +93,12 @@ div.nav-menu {
 @media (max-width: 610px) {
     .checkbtn {
         display: block;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid #979797;
     }
     nav.nav-bar ul {
         position: absolute;
         width: 100%;
-        background: var(--background);
+        background: #181a1b;
         /* nav menu from top */
         height: calc(100% - 50px);
         bottom: 100%;
@@ -149,7 +131,7 @@ nav.pol-nav {
     text-align: center;
     max-width: 60ch;
     margin: auto;
-    border: 1px solid var(--border);
+    border: 1px solid #979797;
     border-radius: 1rem;
     margin-top: 1.5rem;
     margin-bottom: .5rem;
@@ -171,17 +153,16 @@ nav.pol-nav ul li a {
     font-size: 1.2rem;
     font-weight: 550;
     padding: .2rem .5rem;
-    border: 2px solid rgba(var(--button-border), 0.73);
+    border: 2px solid #5e5e5ebb;
     /*
-	border: 2px solid #5e5e5ebb;
     background-color: #5a5a5a45;
     background-color: #97979720; */
     border-radius: 2rem;
 }
 
 nav.pol-nav ul li a:hover, nav.pol-nav ul li a:active {
-    color: var(--accent);
-    background-color: rgba(var(--header), 0.35);
+    color: #0085b9;
+    background-color: #C41BAE35;
     /*
     background-color: #5a5a5a30; */
 }
@@ -191,7 +172,7 @@ nav.pol-nav ul li a:hover, nav.pol-nav ul li a:active {
    ====== */
 
 body {
-    background-color: var(--background);
+    background-color: #181a1b;
     font-family: sans-serif;
 }
 
@@ -237,45 +218,45 @@ main.denpa-main {
 
 /* text highlight color */
 ::selection {
-    background: var(--highlight);
+    background: #e54980;
 	/* #C41BAE */
 }
 
 
 h1 {
-    color: rgb(var(--header));
+    color: #C41BAE;
     line-height: 4rem;
     padding: .25rem 0 -.25rem;
     text-align: center;
 }
 
 h2 {
-    color: rgb(var(--header)); 
+    color: #C41BAE; 
     line-height: 2rem;
     padding: .25rem 0;
 }
 
 h2.blog-title {
-    color: rgb(var(--header));
+    color: #C41BAE;
     line-height: 2rem;
     padding: .25rem 0;
     text-align: center;
 }
 
 h3 {
-    color: rgb(var(--header));
+    color: #C41BAE;
     line-height: 2rem;
     padding: .25rem 0;
 }
 
 /* h3 links appear normal */
 a h3 {
-    color: rgb(var(--header));
+    color: #C41BAE;
     text-decoration: none;
 }
 
 p {
-    color: var(--text);
+    color: #d9dcd6;
     line-height: 1.6rem;
     padding: .25rem 0;
 }
@@ -289,18 +270,17 @@ p.p-indent {
 }
 
 center {
-    color: var(--text);
+    color: #d9dcd6;
     line-height: 1.6rem;
     padding: .25rem 0;
 }
 
-/* webring-frag is unused as far as I can tell, should probably remove later */
 .webring-frag {
     text-align: center;
 }
 
 .webring-frag p {
-    border: 1px solid var(--border);
+    border: 1px solid #979797;
     border-radius: 1rem;
     display: inline;
     line-height: 2rem;
@@ -309,7 +289,7 @@ center {
 }
 
 ul {
-    color: var(--text);
+    color: #d9dcd6;
 }
 
 ul li {
@@ -327,26 +307,26 @@ ul.no-bullet li {
 }
 
 strong {
-    color: var(--accent);
+    color: #0085b9;
     text-decoration-line: underline;
 }
 
 a:link {
-    color: var(--accent);
+    color: #0085b9;
 }
 
 a:visited {
-    color: var(--accent);
+    color: #0085b9;
 }
 
 a:hover, a:active {
-    color: rgb(var(--header));
+    color: #C41BAE;
     /*
     color: #d9dcd6d5; */
 }
 
 details {
-    border: 1px solid var(--border);
+    border: 1px solid #979797;
     border-radius: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -354,7 +334,7 @@ details {
 }
 
 summary {
-    color: var(--text);
+    color: #d9dcd6;
     line-height: 1.6rem;
     padding: .25rem 0;
 }
@@ -365,11 +345,11 @@ details[open] {
 }
 
 details[open] summary{
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #979797;
 }
 
 details li {
-    color: var(--text);
+    color: #d9dcd6;
     line-height: 1.6rem;
     padding: .25rem 0;
     padding-left: 1rem;
@@ -378,7 +358,7 @@ details li {
 
 /* for when i want to embed a tweet in a blog post without actually embedding */
 div.blog-twitter {
-    border: 1px solid var(--border);
+    border: 1px solid #979797;
     border-radius: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -386,7 +366,7 @@ div.blog-twitter {
 }
 
 div.blog-quote {
-    border-left: 6px solid rgb(var(--header));
+    border-left: 6px solid #C41BAE;
     padding-left: 2rem;
     margin-left: .75rem;
     
@@ -398,7 +378,7 @@ div.blog-header {
     display: block;
     align-items: center;
     align-content: center;
-    border: 1px solid var(--border);
+    border: 1px solid #979797;
     border-radius: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -411,13 +391,13 @@ div.blog-header {
 /* font formatting for dates within blog heading divider */
 
 div.blog-header p.blog-dates {
-    color: var(--accent);
+    color: #0085b9;
     font-weight: bold;
     text-align: center;
 }
 
 div.blog-footnotes {
-    border: 1px solid var(--border);
+    border: 1px solid #979797;
     border-radius: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -436,7 +416,7 @@ hr {
     margin-bottom: .65rem;
     height: 1px;
     border: none;
-    background-color: var(--border);
+    background-color: #979797;
 }
 
 /* makes it possible to add pseudo hr */
@@ -449,7 +429,7 @@ hr {
 .h-hr:after {
     content: '';
     display: block;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid #979797;
 }
 
 /* buttons */
@@ -467,12 +447,12 @@ hr {
     font-weight: 550;
     padding: .2rem .7rem;
     border-radius: 2rem;
-    border: 3px solid rgba(var(--button-border), 0.73);
+    border: 3px solid #5e5e5ebb;
 }
 
 .top-button a:hover, .top-button a:active {
-    color: var(--accent);
-    background-color: rgba(var(--header), 0.35);
+    color: #0085b9;
+    background-color: #C41BAE35;
     /*
     background-color: #5a5a5a25; */
 }
@@ -488,12 +468,12 @@ hr {
     text-decoration: none;
     padding: .2rem .7rem;
     border-radius: 2rem;
-    border: 2px solid rgba(var(--button-border), 0.87);
+    border: 2px solid #5e5e5edd;
 }
 
 .social-btn a:hover, .social-btn a:active {
-    color: var(--accent);
-    background-color: rgba(var(--header), 0.30);
+    color: #0085b9;
+    background-color: #C41BAE30;
     /*
     background-color: #5a5a5a30; */
 }
@@ -510,12 +490,12 @@ hr {
     text-decoration: none;
     padding: .2rem .7rem;
     border-radius: 2rem;
-    border: 2px solid rgba(var(--button-border), 0.87);
+    border: 2px solid #5e5e5edd;
 }
 
 .rss-btn a:hover, .rss-btn a:active {
-    color: var(--accent);
-    background-color: rgba(var(--header), 0.30);
+    color: #0085b9;
+    background-color: #C41BAE30;
 }
 
 /* images */
