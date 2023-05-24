@@ -238,6 +238,7 @@ main.denpa-main {
 /* text highlight color */
 ::selection {
     background: var(--highlight);
+    color: var(--text);
 	/* #C41BAE */
 }
 
