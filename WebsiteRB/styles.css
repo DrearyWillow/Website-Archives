@@ -295,6 +295,10 @@ center {
     padding: .25rem 0;
 }
 
+.top-margin-hr {
+    margin-top: .75rem;
+}
+
 /* webring-frag is unused as far as I can tell, should probably remove later */
 .webring-frag {
     text-align: center;
@@ -307,6 +311,15 @@ center {
     line-height: 2rem;
     font-size: 1rem;
     padding: .4rem .7rem;
+}
+
+/* fun to experiment with, but ultimately not what i want right now since it covers up the rest of screen. interesting tho! */
+.denpa-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
 
 ul {

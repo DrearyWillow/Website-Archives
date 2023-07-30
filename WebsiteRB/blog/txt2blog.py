@@ -1,4 +1,17 @@
-#future versions could include a !link command
+#update wishlist:
+#	!link
+#		if !link
+#			linkToggle = True
+#			while linkToggle = True
+#			add words to list
+#			if word contains http
+#				hyperlink = word
+#			if word is !endlink
+#				linkToggle = false
+#	or
+#		if !link
+#		split(!link)
+#		take value between two !link (or three if you want to separate hyperlink and linked text)
 
 import re
 
@@ -28,6 +41,12 @@ for line in inputFile:
 	elif line_no == 4:
 		end_time = line.strip()
 		line = '<p class="blog-dates">Finished ' + date + ' ' + end_time + '</p>\n<p class="blog-dates">Posted 01/01/2023 00:00</p>\n</div>\n\n<hr>\n\n'
+		outputFile.write(line)
+	elif line.startswith('!br'):
+		line = '<br>\n'
+		outputFile.write(line)
+	elif line.startswith('!hr'):
+		line = '<hr>\n'
 		outputFile.write(line)
 	elif line.startswith('!quote '):
 		line = line.rstrip('\n')
