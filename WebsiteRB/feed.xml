@@ -87,5 +87,13 @@
       <description>I Bought a Toothbrush</description>
     </item>
 
+    <item>
+      <title>Reply to Dave</title>
+      <pubDate>Mon, 3 June 2024 20:07:00 CST</pubDate>
+      <link>https://kyler.neocities.org/blog/reply-to-dave/</link>
+      <guid>https://kyler.neocities.org/blog/reply-to-dave/</guid>
+      <description>A blog post about how I'm too tired to write a blog post.</description>
+    </item>
+
   </channel>
 </rss>
