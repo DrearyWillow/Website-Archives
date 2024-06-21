@@ -150,7 +150,7 @@ for line in inputFile:
 			line = '<p class="p-indent">' + line + '</p>\n\n'
 		outputFile.write(line)
 							 
-outputFile.write('</div>\n\n<div class="top-button">\n<a href="https://kyler.neocities.org/blog" class="blog-home">Blog Homepage</a>\n</div>\n\n</main>\n</body>\n</html>')
+outputFile.write('</div>\n\n<div class="top-button">\n<a href="/blog/" class="blog-home">Blog Homepage</a>\n</div>\n\n</main>\n</body>\n</html>')
 outputFile.close()
 			
 		
