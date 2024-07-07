@@ -1,0 +1,153 @@
+Started: 04:46 02/06/2023
+
+Newtype Ramble about Clip Dumps
+
+Preamble
+
+Recently I came upon a YouTube channel from Overwatch player named Cloud [1]. They had been posting intermittent highlights, VODs, and standout games starting from about five years ago, but in the past two years they have greatly increased their uploads and have been focused around clip dumps. Clip dumps are made by compiling short extracted recordings of gameplay where something notable happens and putting a song over the top of the stitched together clips.
+
+As I began binging Cloud's clip dumps, I was overwhelmed with a flood of thoughts and connections. This type of thing happens to me often, and so this time I thought it would be interesting to take down some notes as the thoughts came to me. 
+
+Before I begin describing all those things though I should give some supportive framing for the text and information about what my intentions are. 
+
+Firstly, the following ramble might be appropriately categorized as a 'newtype ramble'. This is in reference to Digi's nuerotype chart [2], where newtype is one of the categories of nuerotypes. This is designed to be a better alternative to the MBTI personality test that tries to generate a more contextual typology of how a person thinks rather than generating a typology based on behaviors. The whole chart is a Cartesian plane divided into a 4x4 grid. The y-axis goes from 'linear thinking' on the bottom to 'lateral thinking' on the top. "Extremely linear thinkers will have one train of thought at a time and will communicate in very straightforward ways while lateral thinkers will have multiple trains of thought at any given time and tend to communicate in more jumbled or indirect ways" [3]. The x-axis goes from 'lexical thinking' on the left to 'impressionistic thinking' on the right. "Lexicality refers to how much a person's understanding depends on the ability to codify ideas using specific language. A lexical thinker will only understand things which can be put into words refusing to acknolwedge understandings which haven't been codified. Impressionistic thinkers on the other hand might understand things but struggle to put them into words and find other methods of communication preferable" [4]. Newtypes are in the top right corner, being highly impressionistic and highly lateral. "What if you had nothing but just insanely complex, detailed, and robust ideas all the time and absolutely no idea how to express them in words without serious deliberation?" [5]. 
+
+To be honest it feels a little odd claiming 'newtype' for myself because of my lack of original exposure to the subject. I only know Digi and neurotyping through n0thanky0u, dotesmite, and other denpa people. The neurotype chart is one of the only videos I've actually watched of Digi's despite how clear their influence is over a lot of people I enjoy being around. I've tried to get into their videos but it never really stuck with me. The simulacra are much better imo. The other thing that feels off is that I'm not exactly super involved in the anime community, and have a lot of gaps in my knowledge of the general culture as a result. I have no clue what the original meaning of newtype is lol; apparently it's some gundam shit?? I dunno. All of this is to say, my interpretation of the concept is greatly influenced by the method of exposure and secondhand applications by denpa people. 
+
+Nonetheless, in general I have found this to reoccurently be a useful way to understand how I think about the world. Which is odd because I'm usually very much against systemiticity (impressionistic uwu), but I think in this case it's more useful because of what the words are negating. Being able to have vocabulary to describe that I am *not* linear or *not* lexical is very helpful in orienting myself. Which might seem a little ironic that codifing something into language helped me understand something giving the self-ascription of non-lexical, but actually I think it's telling that I appreciate the lexical work of others so much because I can rarely put things into words myself. Basically, I don't attribute any ontological status to neurotyping, but I do think it can be contexually useful to specify comparative discriminatory judgements of a way of thinking. Even generalizing from multiple instances of individual judgements can be helpful in some contexts, as long as it doesn't become an identity spook. 
+
+I got a little off track but the basic point I'm making is that the thoughts I was having about clip dumps were not very lexical, so they were difficult to put into exact words, and they were not very linear, so there was a lot of strands going at the same time. For the purposes of this writing I will try to make things a little more organized than my original notes [6], but part of the challenge is that I think the subject matter I'm adressing is fundamentally an interconnected tangled mess [7]. I'm very partial to the Hegelian/Marxian notion of totality, and I carry that interpretation of the world with almost everything. I like the following Lukacs quote which summarizes the idea:
+
+<quote>Only in this context which sees the isolated facts of social life as aspects of the historical process and integrates them in a totality, can knowledge of the facts hope to become knowledge of reality. This knowledge starts from the simple (and to the capitalist world), pure, immediate, natural determinants described above. It progresses from them to the knowledge of the concrete totality, i.e. to the conceptual reproduction of reality. This concrete totality is by no means an unmediated datum for thought.
+“The concrete is concrete,” Marx says [8], “because it is a synthesis of many particular determinants, i.e. a unity of diverse elements.”</quote> [9] 
+
+That inclusion is maybe a bit out of place, but I think it nicely captures a powerful motivation for the impulse to think laterally. That is, if you think the world is deeply interconnected in all sorts of ways, you won't be tempted to entertain reductionistic or isolationistic modes of thinking. In the main body of this piece, I don't follow things out completely to an analysis of clip dumps and their role in totality. That would be very difficult and time consuming and I don't have nearly enough of the requisite knowledge of skills to do so; nor am I sure that it would even be worthwhile. Rather I end up pointing at a number of paths that emanate from the phenomenon and some suggestions about what types of inquiry would be fruitful [10].
+
+Finally, while I won't get into all my motivations for writing this, as it would quickly get out of hand as well, I do think it will be helpful to address a few. Firstly, I don't think I'm saying anything terribly specific. This builds off the impressionistic style of thinking, as I don't have a lot of determinate conceptions in mind while thinking, but nonetheless I don't think it's useless to orient the reader's attention in a certain direction, even if I'm unsure about the exact meaning that will ultimately be found there. Secondly, I quite like the comments made by Raymond Geuss at the beginning a speech he gave during an occupation of Cambridge University [11], in which he summarizes a short story by Kafka called "Josephine the Singer, or the Mouse Folk", and analogizes himself to Josephine. Josephine is a mouse that is said to have a great ability sing, and plenty of mice come from great distances to watch her perform. However, it turns out that Josephine can't sing and is only able to whistle. In fact, she can't even whistle better than any other mouse. This raises the puzzle of why mice continue to show up to her performances. The answer that Kafka suggests is that by Josephine standing on stage, trying solemnly to do something, and performing in such an unimpressive way that she gives the other mice involved a space of reflection to think about what they are doing. Geuss compares his role as speaker to that of Josephine: he is going to go up and say things that people already know, but the performance and effort itself may serve a function of creating space for the audience to reflect upon things that they already know, and to orient their attention. Although I think Geuss is being slightly modest and the usage of that story as an introduction is serving other performative (in the non-derogatory sense) functions, I would like to appropriate this understanding of what I am doing with this piece. 
+
+Without further ado, I'll start actually talking about clip dumps. Last warning: I do not have a clear thesis statement other than that clip dumps strike me as something worthy of considerable consideration and can unfold themselves in manifold directions for reflection about significant areas of life. Watching clip dumps is not a simple immediate experience, but rather a highly mediated interaction that pre-supposes a certain level and form of productive and technological development. It is a deeply historically embedded cultural practice that serves a diverse set of societal, pyschological, and aesthetic functions.
+
+------------------------------------------------------
+
+Software
+--------
+The first thing I started to reflect about while watching Cloud's videos was what kinds of historical and social developments could lead to not only them creating an individual clip dump, but for the genre of clip dumps to form. While the origins of the history of montages and fragmovies and the like would probably be extremely relevant here, I don't have much of that knowledge so instead I will comment on more recent things. For example, the relative popularity of clip dumps within high-elo Overwatch player culture can be attributed in great part due to the low barrier of entry. If you have a computer that can run Overwatch, your computer is also capable of running recording and editing software. There are plenty of free and convinient ways for players to record their gameplay: Nvidia ShadowPlay, in game highlights, replays, OBS studio, and clips from livestreaming to name a few. Also, the genre of video is extremely simple to edit. Simply place clips next to each other on the timeline and run a song track over the top. 
+
+
+
+
+Other Pre-conditions
+--------------------
+To hint at other relevant pre-conditions, one could think about economic access. What kind of society and which people in that society have the material, temporal, and motivational resources to play and get good at an online game? One could consider how these resources are distributed as well. For example, computer components, an internet connection, and Overwatch itself are all sold as commodities, and this influences their nature as well as people's relation to them. However, these are different types of commodities: physical object, service, and weird license owning-not-really-owning thing respectively. Overwatch 2 has a different monetization scheme than Overwatch 1 with a battle pass in addition to cosmetics and that is indicative of historical changes as well. Computers require mining of raw minerals with deeply political and potentially worrying methods for: individual workers, the environment, international trade relations within a dwindling hegemonic power, etc. Thinking about these conditions helps me make sense of the activity in its historical context, and also is useful to consider how what might seem like relatively exogenous aspects of society can have massive influence, both on a community and personal level. If I were a vulgar Marxist now is the time when I would begin talking about how the base determines the superstructure :P [12]. 
+
+
+
+
+Platform
+--------
+Another type of pre-condition for modern clip dumps is social media. I say "modern" because I'm sure something like this was possible prior to the widespread adoption of the internet, though the attribution would likely be anachronistic. You could record an arcade cabinet or CRT TV and edit a VCR tape of gaming clips to share with friends; I'm not sure to what extent this actually occurred and regardless that is radically different in form and function to modern clip dumps anyways. Social media platforms like Twitter, Discord, and especially YouTube are extremely significant for clip dumps. 
+
+Beyond contributing to the afformentioned low barrier to entry, they also influence the creative process, audience interpretation, and social significance. For example, because YouTube will freely and permanently host a video, it can be accessed from anywhere by anyone with a decent internet connection. The ability to easily rewind, rewatch, view in binge-able playlist succession or intermittment subscription form vastly change the viewing experience. Being able to have a permanent record show and share can also be a compelling motivation for clip dump creators [13]. Customizing a channel layout, profile picture, upload schedule, description of each video, and having discretion over the segretation of creative productions are all imporant decisions that have a lot of potential for interrogation. Designing a profilictic identity is something relatively historically unique, with a whole complex of motivations and generated meaning, and their reciporical relation to one another. The profile builder is acting with the knowledge that others can see, as well as revising their approach due to personal, cultural, and broader social interactions and developments. The audience can interact with the creator relatively directly and easily, and this too can lead to further change both in terms of the profile and in terms of the meaning generated by the viewing. Consider the way a creator interacts in the comments:
+
+Additionally, the platform of YouTube frames comparability. Clip dumps can be easily compared to montages from other games, other Overwatch content, or other 
+
+
+
+Music
+-----
+
+
+
+
+Editing
+-------
+
+
+
+Gameplay
+--------
+
+
+
+Other People
+------------
+
+
+
+Audience interpretation
+-----------------------
+
+
+
+Gender
+------
+
+
+
+Temporality
+-----------
+
+
+
+Absence
+-------
+
+
+
+
+
+
+
+
+[1] Cloud youtube
+[2] Link to neurotype chart itself
+[3] Neurotype video
+[4] ibid.
+[5] ibid.
+[6] Link to discord notes file
+[7] One regret I have is that even codifying this understanding in language feels like a violent disservice to the phenomenon and the significance it has for me. The more formal writing style, complete sentence form, and categorization of noticed themes espeically stand out as crushing something significant. I need to read more philosophical romanticism like Schlegel if I want to describe this properly... In any case, maybe reading the original discord logs [6] might have a different energy to it that gives a different impression.
+[8] Karl Marx, A Contribution to Political Economy, p. 293.
+[9] Georg Lukacs, History and Class Consciousness, p. 8-9.
+[10] I'm aware that how I'm using the concept of totality isn't entirely appropriate to what I'm doing in this piece, but nonetheless is an important orienting concept for me that maybe explains a bit of where I'm coming from. I think the final result of this piece is a mish-mash of a lot of things that are more or less just listing a variety of ways in which clip dumps can be analyzed from. 
+[11] Raymond Geuss, freedom of speech video
+[12] This is maybe not entirely fair - maybe in some highly modified interpretion I think the base-superstructure can be limitedly useful in talking about how the mode of production influences the rest of society. But for the most part I think it's entirely misleading and those 2nd International losers really screwed any chance of it having any semblance of descriptive accuracy. 
+[13] A more complete treatment of clip dumps would involve qualitative research and interviews with actual clip dump creators. My marginal familiarity with several is insufficient to completely back up my interpretations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

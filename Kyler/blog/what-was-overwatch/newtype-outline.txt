@@ -1,0 +1,124 @@
+
+
+
+Software
+----------
+- low barrier to entry
+- recording software
+- editing software
+- recording method: stream clips, Nvidia ShadowPlay, in game highlights, replays, recording their game specifically for the purpose of generating clips
+
+
+Other Pre-Conditions
+--------------------
+- class and privilege (free time to play game, have internet connection, have pc, have time to get good, have desire to get good)
+- gameplay region (not really sure where else to put this) segregated by language, server region (west coast vs east coast but maybe they added more servers in ow2, not sure), EU different than NA east different than NA west, different communities
+- computers, overwatch, and internet connection sold as commodities: changing monetization model for overwatch
+- computers require mining of raw minerals with potentially worrying methods, but for individual workers, the environment, hegemonic international trade relations, etc
+- when we think about what technological and material pre-conditions there are for things, I think it helps us think about how relatively exogenous things can lead to massive personal influence, as well as the historical context in which we find ourselves. how much has that is unable to be anticipated changed due to these developments? what functions is this new mode of expression, interrelation, etc, serving and what are being eschewed in the process? what does this aspect of technological development mean for how we should be developing technology now?
+
+
+Platform
+--------
+- Platform: youtube, twitter reposts, discord promotion, sharing with friends, unlisted
+- Comparing to overwatch content: meme videos, influencer videos TM, rank progression videos, themed videos (trying to tell a story/narrative), challenge videos, more edited montages, vod reviews, public coaching (Natter, Jayne), meta-content about the game (tier lists and the like), reactions (guess my sr, reviewing bronze players for content, developer blog posts, developer update videos, cinematics), related "streamer reaction" montage
+- Comparing to other youtube content: what appears on the recommended feed? what did you just watch?
+- channel layout: pfp, description (what do they link?), upload schedule, playlists, subscriptions, bio, exclusively ow channel?
+- stable access at any time with internet connection with a variety of viewing methods
+- rewind, rewatch, in playlist back to back, intermittent subscription, binge-able
+
+
+Music and Sounds (move sound stuff to editing)
+-----
+- popularity (in general, in a specific community) and also re-using or avoiding song some other clip dump used
+- deliberately deviating from popularity or variating on their standard genre
+- genre
+- taste -> personality
+- how does this influence and recontextualize the clips? what happens to this recontextualizion when the audience deliberately or unintentionally turns off the sound (and for what reasons would they do that?)?
+- do they completely mute clips? selectively enable sound? (dinks [at that point maybe its more of montage], funny jokes, comments from teammates, callouts that give context to significance of the play, outside audio sources like other players or casters talking about performance [maybe not even this specific game's performance])
+
+
+Gameplay
+--------
+- playstyle (agression)
+- aimstyle (sensitivity, flicks vs tracking, kovaaks)
+- what meta and why? uploading more frequent in one or another?
+- hero pool: standard comfort picks, "forcing" a hero? (sometimes important micro-story element i.e. teammate says "stop playing x" followed by clips of them popping off on x), audience knows when they break from standard (off-role, or playing non-standard character)
+- even "pop off" clips are vastly different and communicate so much about playstyle, personality, and what the author considers significant: (long clips with sustained performance throughout a teamfight vs short flashy plays; moba style ability interactions [eating pulse bomb] or fps style aim emphasis)
+- multiple clips from the same match vs clips from a variety of different matches (what does this implicitly communicate? inconsitency? for which one? specific person they are interacting with? limited recording time?)
+- game mode: competitive, quick play, scrims, tournament, (type of person to not exclusively play comp in the first place, but then also the inclusion of that in the video and for what purpose)
+- used to be able to see rank
+- map pool: comfort maps, maps they perform well on that reoccur in the video (selection bias type thing. good clips filter for map maybe, this also influenced by hero pool, meta, etc)
+
+
+
+Other People
+------------
+- clip dumps not exclusively about an individual, even within the content itself
+- team chat audio
+- tourney caster audio
+- friends discord vc
+- match chat (and team chat)
+- in game dms
+- discord notif dms (in general other software that is open! presupposes so much and is super informative about what type of community culture there is and how its developed)
+- do they play with friends? duo?
+- does the author include or emphasize other player reactions to their performance?
+- jokes or more personal moments included at the end, typically sound cuts out
+
+
+Editing (move sound stuff here)
+-------
+- creator's discretion about inclusion and how they are presented
+- clip choices
+- creator motivation
+- cutting off clips before/after death 
+- blurring alt account name
+
+
+Audience interpretation
+-----------------------
+- perceived and intended audience
+- usually specific to a single game: people that are overwatch players (or coaches). pre-requisite knowledge. when I watch rainbow 6 or apex legends clip dumps I don't know what's going on. because they are short and rely on audience understanding of what is impressive. being able to quickly accomodate/acustom oneself to the state of the game, be familiar with the abilities and the stardard form of play, and being able to identify when something impressive happens. in jokes and general discussion people will reference character names, abilities, metas, memes, often-times not in straightforward ways to someone who is not familiar with the community
+- association to creator: not really going to get picked up by the algorithm. finding out through word of mouth: high elo community players that are aware of other niche players
+- role that the viewer plays: dps players vs tank players watching dps clip dump
+- how are they watching? (youtube phone app, on computer *that they also play overwatch on*)
+- where are they watching (home, work, school)
+- when are they watching (before bed, before obligations, before bed)
+- path to pro, tier 2, tier 3, just gm guy
+- personal relationship with author, included within the video as one of the players/speakers, competitor, casual viewer, 
+
+
+Gender
+------
+- gaming obviously historically primarily marketed as a boy's thing
+- disproportionate amount of men in gaming, high elo gaming, clip dump makers
+- anecdotally, i've noticed gender disparity become far less in overwatch, even just in terms of visibility if not in actual number of people (still very man dominated tho)
+- motivations and dispositions mediated by gender (approach to competitiveness, showing off, superiority, skill envy, support for friends and what form that takes, outspoken-ness)
+- influences every category above: playstyle, absence, obviously creator and audience interpretation, editing choices, music, and how it is shared around
+
+
+Temporality
+-----------
+- changes over time (type of video, change in editing/music taste, improved rank/improved gameplay, altered game style, new friends)
+- changes over time: game updating, meta changing, joining a team (more scrim clips, tournaments, rate of improvement, playstyle shift, hero pool shift)
+- changes over time: audience, creator purpose
+- can manifest in so many different ways, and i tend to think theres an irreducable impressionistic component here. simply pointing out the change doesn't carry the same phenomenological significance and meaning that observing the subtle changes over time can give you. an impression and interpretation of author personality and how it shifts
+
+
+Absence
+-------
+What type of player wouldn't upload and for what reason?  playstyle not lending itself? Difficult on console? (i know nothing about non-pc, they probably have their own community n stuff), lack of confidence? more casual? less casual? less obviously flashy hero pool? to be actively disliked by the communityusually you have to be pretty
+- could just be lack of interest but even that doesn't stop inquiry flatly as that lack could also be investigated.
+
+
+
+
+
+
+
+
+
+
+
+
+
