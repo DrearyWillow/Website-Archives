@@ -52,7 +52,7 @@ for line in inputFile:
 		line = line.rstrip('\n')
 		if ' !newline ' in line:
 			line = line.replace(' !newline ', '</p>\n<p>')
-		fn_find = (re.findall('\[[\0-9]*\]', line))
+		fn_find = re.findall(r'\[\d+\]', line)
 		if fn_find:
 			fn_str = str(fn_find)
 			fn_find_len = len(fn_find)
@@ -79,7 +79,7 @@ for line in inputFile:
 		line = line.rstrip('\n')
 		if ' !newline ' in line:
 			line = line.replace(' !newline ', '</p>\n<p>')
-		fn_find = (re.findall('\[[\0-9]*\]', line))
+		fn_find = re.findall(r'\[\d+\]', line)
 		if fn_find:
 			fn_str = str(fn_find)
 			fn_find_len = len(fn_find)
@@ -105,7 +105,7 @@ for line in inputFile:
 	elif line.startswith("["):
 		#footnotes
 		line = line.rstrip('\n')
-		fn_find = (re.findall('^\[[\0-9]*\]', line))
+		fn_find = re.findall(r'\[\d+\]', line)
 		fn_str = str(fn_find)
 		fn_find_len = len(fn_find)
 		fn_search = []
@@ -127,7 +127,7 @@ for line in inputFile:
 		outputFile.write(line)
 	else:
 		line = line.rstrip('\n')
-		fn_find = (re.findall('\[[\0-9]*\]', line))
+		fn_find = re.findall(r'\[\d+\]', line)
 		if fn_find:
 			fn_str = str(fn_find)
 			fn_find_len = len(fn_find)

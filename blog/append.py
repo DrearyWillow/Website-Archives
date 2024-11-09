@@ -10,7 +10,7 @@ for file in os.listdir(directory):
     title = filename.replace(".pdf", "")
     title = title.replace("-", " ")
     #temp = '<p><a href="https://kyler.neocities.org/pdfs/postliterate/' + filename + '" target="_blank" rel="noopener noreferrer">' + title + '</a> - Postliterate</p>\n\n'
-    temp = '<p><a href="https://kyler.neocities.org/pdfs/postliterate/' + filename + '" target="_blank" rel="noopener noreferrer">' + title + '</a></p>\n\n'
+    temp = '<p><a href="https://dreary.neocities.org/pdfs/postliterate/' + filename + '" target="_blank" rel="noopener noreferrer">' + title + '</a></p>\n\n'
     #print(filename)
     #print(title)
     #print(temp)
