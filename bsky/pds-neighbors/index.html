@@ -70,6 +70,7 @@
             console.log(`Actor URL: ${actorUrl}`)
             let actor = actorUrl.replace("at://", "").replace("https://bsky.app/profile/", "").replace("https://main.bsky.dev/profile/", "").split("/")[0]
             console.log(`Actor (1): ${actor}`)
+            if (!actor) document.getElementById("result").textContent = `Error: bad actor entered.`;
             actor = await resolveDid(actor)
             console.log(`Actor (2): ${actor}`)
             let service = await serviceEndpoint(actor)
