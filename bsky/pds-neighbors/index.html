@@ -45,6 +45,9 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+        .container p {
+            color: white;
+        }
         #actorForm ::selection, #result ::selection {
             background-color: rgba(73, 73, 73, .8);
             color: inherit;
@@ -158,14 +161,20 @@
 
         async function getProfile(actor) {
             const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${actor}`);
-            if (!response.ok) {throw new Error(`Failed to get profile: ${await response.text()}`)}
+            if (!response.ok) {
+                document.getElementById("result").textContent = `Error: failed to get profile`;
+                throw new Error(`Failed to get profile: ${await response.text()}`)
+            }
             return (await response.json());
         }
 
         async function resolveDid(handle) {
             if (handle.startsWith("did:")) {return handle}
             const response = await fetch(`https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${handle}`);
-            if (!response.ok) {throw new Error(`Failed to resolve DID: ${await response.text()}`)}
+            if (!response.ok) {
+                document.getElementById("result").textContent = `Error: failed to resolve DID`;
+                throw new Error(`Failed to resolve DID: ${await response.text()}`)
+            }
             return (await response.json()).did;
         }
 
@@ -179,13 +188,17 @@
                 response = await fetch(`https://${did.slice(8)}/.well-known/did.json`);
             }
             console.log(`${did}`)
-            if (!response.ok) {throw new Error(`Failed to retrieve service endpoint: ${await response.text()}`)}
+            if (!response.ok) {
+                document.getElementById("result").textContent = `Error: failed to retrieve service endpoint`;
+                throw new Error(`Failed to retrieve service endpoint: ${await response.text()}`)
+            }
             services = (await response.json()).service;
             for (const service of services) {
                 if (service.type === "AtprotoPersonalDataServer") {
                     return service.serviceEndpoint;
                 }
             }
+            document.getElementById("result").textContent = `PDS serviceEndpoint not found in DID document`;
             throw new Error(`PDS serviceEndpoint not found in DID document`);
         }
     </script>
