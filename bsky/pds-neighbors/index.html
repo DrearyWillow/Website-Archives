@@ -48,8 +48,19 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+        .container div {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding-left: 10px;
+            padding-right: 10px;
+            white-space: normal;
+        }
         pre p {
             color: white;
+            white-space: normal;
+            width: 100%;
         }
         #actorForm ::selection, #result ::selection {
             background-color: rgba(73, 73, 73, .8);
@@ -62,6 +73,7 @@
             event.preventDefault();
             await getNeighbors(event);
         });
+        
         async function getNeighbors(event) {
             event.preventDefault();
             const actorUrl = document.getElementById("actorUrl").value;
