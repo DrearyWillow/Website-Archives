@@ -181,6 +181,7 @@
 
         async function resolveDid(handle) {
             if (handle.startsWith("did:")) {return handle}
+            if (handle.startsWith("@")) {handle = handle.slice(1)}
             const response = await fetch(`https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${handle}`);
             if (!response.ok) {
                 document.getElementById("result").textContent = `Error: failed to resolve DID`;
