@@ -13,7 +13,7 @@
     <h1>AtProto PDS Neighbors</h1>
     <form id="postForm">
         <div style="display: flex; align-items: center; justify-content: center;">
-        <input type="text" id="actorUrl" name="actorUrl" style="width: 550px" placeholder="Handle, DID, profile URL, or AT-URI" required>
+        <input type="text" id="actorUrl" name="actorUrl" placeholder="Handle, DID, Profile URL, or AT-URI" required>
         </div>
         <br>
         <div style="display: flex; align-items: center; justify-content: center;">
@@ -21,16 +21,22 @@
         </div>
     </form>
 
-    <h2 style="display: flex; align-items: center; justify-content: center;">Result</h2>
+    <!-- <h2 style="display: flex; align-items: center; justify-content: center;">Result</h2> -->
     <pre id="result" style="display: flex; align-items: center; justify-content: center;"></pre>
 
     <style>
-        input, button {
+        input {
             background-color: #2C2C2C;
             color: white;
+            width: 550px;
+        }
+        button {
+            background-color: #2C2C2C;
+            color: white;
+            width: 125px;
         }
         input:focus {
-            border-color: #f891c1;
+            border-color: rgb(196, 27, 174);
             outline: none;
             /* box-shadow: 0 0 10px #f891c1; */
         }
