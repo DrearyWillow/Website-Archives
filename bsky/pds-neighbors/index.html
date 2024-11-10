@@ -82,11 +82,11 @@
             if (repo) {
                 console.log(repo, leftNeighbor, rightNeighbor)
                 let outputHtml = `<div class="neighbor-container">`
-                outputHtml += await constructRepoInfo(leftNeighbor, "Left Neighbor", service, idx - 1);
+                outputHtml += await constructRepoInfo(leftNeighbor, "Left Neighbor", service, idx);
                 outputHtml += `<hr><br>`
-                outputHtml += await constructRepoInfo(repo, "Actor", service, idx);
+                outputHtml += await constructRepoInfo(repo, "Actor", service, idx + 1);
                 outputHtml += `<hr><br>`
-                outputHtml += await constructRepoInfo(rightNeighbor, "Right Neighbor", service, idx + 1);
+                outputHtml += await constructRepoInfo(rightNeighbor, "Right Neighbor", service, idx + 2);
                 outputHtml += `</div>`
                 document.getElementById("result").innerHTML = outputHtml;
             } else {
