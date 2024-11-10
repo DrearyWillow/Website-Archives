@@ -11,7 +11,7 @@
 <body>
     <h1>AtProto PDS Neighbors</h1>
 
-    <form id="postForm">
+    <form id="actorForm">
         <div style="display: flex; align-items: center; justify-content: center;">
         <input type="text" id="actorUrl" name="actorUrl" placeholder="Handle, DID, Profile URL, or AT-URI" required>
         </div>
@@ -51,12 +51,16 @@
     </style>
 
     <script>
+        document.getElementById("actorForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            await getNeighbors(event);
+        });
         async function getNeighbors(event) {
             event.preventDefault();
             const actorUrl = document.getElementById("actorUrl").value;
             if (!actorUrl) document.getElementById("result").textContent = `Error: no actor entered.`;
             console.log(`Actor URL: ${actorUrl}`)
-            let actor = actorUrl.replace("at://", "").replace("https://bsky.app/profile/").replace("https://main.bsky.dev/profile/").split("/")[0]
+            let actor = actorUrl.replace("at://", "").replace("https://bsky.app/profile/", "").replace("https://main.bsky.dev/profile/", "").split("/")[0]
             console.log(`Actor (1): ${actor}`)
             actor = await resolveDid(actor)
             console.log(`Actor (2): ${actor}`)
