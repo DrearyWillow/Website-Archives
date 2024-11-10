@@ -90,8 +90,8 @@
             if (!repo.active) {
                 repoHtml += 
                     `<p><a href="https://pdsls.dev/at/${did}">${did}</a></p>` +
-                    `<p>Status: ${status}</p>` +
-                    `<p>#${idx} in <a href="https://pdsls.dev/at/${service}">${service}</a></p>` +
+                    `<p>Status: ${status}</p>` + 
+                    `<p>#${idx} in <a href="https://pdsls.dev/${service.slice(8)}">${service}</a></p>` +
                     `<p><a href="https://bsky.app/profile/${did}">Dead Bsky Profile</a></p>`;
             } else {
                 const info = await getProfile(did);
@@ -102,7 +102,7 @@
                     `<p><a href="https://pdsls.dev/at/${did}">${did}</a></p>` +
                     `<p>Status: active</p>` +
                     `<p>Created at: ${createdAt}<p>` +
-                    `<p>#${idx} in <a href="https://pdsls.dev/at/${service}">${service}</a></p>` +
+                    `<p>#${idx} in <a href="https://pdsls.dev/${service.slice(8)}">${service}</a></p>` +
                     `<p><a href="https://bsky.app/profile/${handle}">@${handle}</a></p>`;
             }
             repoHtml += `</div>`;
@@ -171,7 +171,7 @@
                 response = await fetch(`https://plc.directory/${did}`);
             } else {
                 console.log(`did:web`)
-                response = await fetch(`https://${did}/.well-known/did.json`);
+                response = await fetch(`https://${did.slice(8)}/.well-known/did.json`);
             }
             console.log(`${did}`)
             if (!response.ok) {throw new Error(`Failed to retrieve service endpoint: ${await response.text()}`)}
