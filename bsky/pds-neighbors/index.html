@@ -10,6 +10,7 @@
 </head>
 <body>
     <h1>AtProto PDS Neighbors</h1>
+    
     <form id="postForm">
         <div style="display: flex; align-items: center; justify-content: center;">
         <input type="text" id="actorUrl" name="actorUrl" placeholder="Handle, DID, Profile URL, or AT-URI" required>
@@ -21,7 +22,6 @@
         <br>
     </form>
 
-    <!-- <h2 style="display: flex; align-items: center; justify-content: center;">Result</h2> -->
     <pre id="result" style="display: flex; align-items: center; justify-content: center;"></pre>
 
     <style>
@@ -88,7 +88,7 @@
                 repoHtml += 
                     `<p><a href="https://pdsls.dev/at/${did}">${did}</a></p>` +
                     `<p>Status: ${status}</p>` +
-                    `<p>#${idx} in <a href="${service}">${service}</a></p>` +
+                    `<p>#${idx} in <a href="https://pdsls.dev/at/${service}">${service}</a></p>` +
                     `<p><a href="https://bsky.app/profile/${did}">Dead Bsky Profile</a></p>`;
             } else {
                 const info = await getProfile(did);
@@ -99,7 +99,7 @@
                     `<p><a href="https://pdsls.dev/at/${did}">${did}</a></p>` +
                     `<p>Status: active</p>` +
                     `<p>Created at: ${createdAt}<p>` +
-                    `<p>#${idx} in <a href="${service}">${service}</a></p>` +
+                    `<p>#${idx} in <a href="https://pdsls.dev/at/${service}">${service}</a></p>` +
                     `<p><a href="https://bsky.app/profile/${handle}">@${handle}</a></p>`;
             }
             repoHtml += `</div>`;
