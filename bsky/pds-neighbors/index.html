@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Thread Resolver</title>
+    <title>PDS Neighbors</title>
     <link rel="icon" type="image/x-icon" href="../../favicon.ico">
-    <!-- <link href="/styles.css" rel="stylesheet" type="text/css" media="all"> -->
     <link href="../../styles.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -19,6 +18,7 @@
         <div style="display: flex; align-items: center; justify-content: center;">
             <button type="button"  onclick="getNeighbors(event)">Get Neighbors</button>
         </div>
+        <br>
     </form>
 
     <!-- <h2 style="display: flex; align-items: center; justify-content: center;">Result</h2> -->
@@ -38,7 +38,6 @@
         input:focus {
             border-color: rgb(196, 27, 174);
             outline: none;
-            /* box-shadow: 0 0 10px #f891c1; */
         }
         .container {
             display: flex;
@@ -181,121 +180,6 @@
             }
             throw new Error(`PDS serviceEndpoint not found in DID document`);
         }
-
-        // async function findRepo(service, findDid) {
-        //     repos = await listRepos(service)
-        //     for idx, repo in enumerate(repos) {
-        //         if (repo.did === findDid) {
-        //             let leftNeighbor = repos[idx - 1]
-        //             let rightNeighbor = repos[idx + 1]
-        //             return repo, leftNeighbor, rightNeighbor
-        //         }
-        //     } else {
-        //         return false
-        //     }
-        // }
-
-        // async function* listRepos(service) {
-        //     const LIMIT = 1000;
-        //     let found = false
-        //     let res = await fetch(`${service}/xrpc/com.atproto.sync.listRepos?limit=${LIMIT}`);
-        //     output = await (res.json()).repos
-        //     yield* output 
-        //     while ((cursor = res.json().cursor) && !found) { // this doesn't account for the case where the findDid is the last result in the cursor, but idc
-        //         res = await fetch(`${service}/xrpc/com.atproto.sync.listRepos?limit=${LIMIT}&cursor=${cursor}`);
-        //         output = await (res.json()).repos
-        //         yield* output
-        //     }
-        // }
-
-        // const constructRepoInfo = async (repo, prefix, service, idx) => {
-        //     let repoHtml = ""
-        //     if (prefix) {
-        //         repo.Html.append("<div><p>${prefix}</p>")
-        //     } else {
-        //         repo.Html.append("<div>")
-        //     }
-
-        //     did = repo.did
-        //     if (!(status = repo.active)) {
-        //         status = repo.status
-        //         repoHtml.append(
-        //             <div>
-        //                 <p><a href="pdsls.dev/at/${did}">${did}</a></p>
-        //                 <p>Status: ${status}</p>
-        //                 <p>#${idx} in <a href="${service}">${service}</a></p>
-        //                 <p><a href="https://bsky.app/profile/${did}">Dead Bsky Profile</a></p>
-        //             </div>
-        //         )
-        //     } else {
-        //         info = await getProfile(did)
-        //         handle = info.handle
-        //         repoHtml.append(
-        //             <div>
-        //                 <p><a href="pdsls.dev/at/${did}">${did}</a></p>
-        //                 <p>Status: active</p>
-        //                 <p>#${idx} in <a href="${service}">${service}</a></p>
-        //                 <p><a href="https://bsky.app/profile/${handle}">@${handle}</a></p>
-        //             </div>
-        //         )
-        //     }
-        //     return repoHtml
-        // }
-
-        // function syntaxHighlight(json) {
-        //     if (typeof json !== 'string') {
-        //         json = JSON.stringify(json, null, 4);
-        //     }
-        //     json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        //     return json.replace(/("(\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g, function (match) {
-        //         let cls = 'number';
-        //         if (/^"/.test(match)) {
-        //             cls = /:$/.test(match) ? 'key' : 'string';
-        //         } else if (/true|false/.test(match)) {
-        //             cls = 'boolean';
-        //         } else if (/null/.test(match)) {
-        //             cls = 'null';
-        //         }
-        //         return '<span class="' + cls + '">' + match + '</span>';
-        //     });
-        // }
-
-        // async function findRepo(service, findDid) {
-        //     const repos = [];
-            
-        //     for await (const repo of listRepos(service)) {
-        //         repos.push(repo);
-        //     }
-            
-        //     for (let idx = 0; idx < repos.length; idx++) {
-        //         if (repos[idx].did === findDid) {
-        //             const leftNeighbor = repos[idx - 1] || null;
-        //             const rightNeighbor = repos[idx + 1] || null;
-        //             return { idx, repo: repos[idx], leftNeighbor, rightNeighbor };
-        //         }
-        //     }
-            
-        //     return { repo: null, leftNeighbor: null, rightNeighbor: null };
-        // }
-
-        // async function* listRepos(service) {
-        //     const LIMIT = 1000;
-        //     let cursor = null;
-
-        //     while (true) {
-        //         const res = await fetch(`${service}/xrpc/com.atproto.sync.listRepos?limit=${LIMIT}${cursor ? `&cursor=${cursor}` : ''}`);
-        //         const data = await res.json();
-                
-        //         if (data.repos && data.repos.length > 0) {
-        //             yield* data.repos;
-        //         } else {
-        //             break;
-        //         }
-                
-        //         cursor = data.cursor;
-        //         if (!cursor) break;
-        //     }
-        // }
     </script>
 </body>
 </html>
