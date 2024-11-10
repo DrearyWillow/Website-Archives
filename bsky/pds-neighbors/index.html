@@ -95,10 +95,14 @@
         }
 
         async function constructRepoInfo(repo, prefix, service, idx) {
-            if (!repo) return "";
             let repoHtml = `<div>`;
             if (prefix) {
                 repoHtml += `<h3>${prefix}</h3>`;
+            }
+            if (!repo) {
+                repoHtml += `<p>This actor has no ${prefix.toLowerCase()} :(</p>` +
+                    `</div>` 
+                return repoHtml
             }
             const did = repo.did;
             let status = repo.active ? "active" : repo.status || "unknown";
