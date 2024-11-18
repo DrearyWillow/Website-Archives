@@ -200,13 +200,13 @@
         }
 
         async function listUrlToUri(listUrl) {
-            const parts = postUrl.replace(/\/$/, '').replace("https://", "").split('/');
+            const parts = listUrl.replace(/\/$/, '').replace("https://", "").split('/');
 
             if (parts.length > 5) {
-                throw new Error(`Post URL '${postUrl}' has too many segments.`);
+                throw new Error(`Post URL '${listUrl}' has too many segments.`);
             }
             if (parts.length < 5) {
-                throw new Error(`Post URL '${postUrl}' does not have enough segments.`);
+                throw new Error(`Post URL '${listUrl}' does not have enough segments.`);
             }
 
             const rkey = parts[parts.length - 1];
