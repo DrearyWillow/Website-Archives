@@ -20,8 +20,8 @@
         </div>
         <br>
         <div style="display: flex; align-items: center; justify-content: center;">
-            <button type="button" onclick="blockFromList(event)">Block List</button>
-            <!-- <button type="button" onclick="unblockFromList(event)">Unblock List</button> -->
+            <button type="button" onclick="blockFromList('block')">Block List</button>
+            <button type="button" onclick="blockFromList('unblock')">Unblock List</button>
         </div>
         <br>
     </form>
@@ -82,12 +82,12 @@
     </style>
 
     <script>
-        document.getElementById("actorForm").addEventListener("submit", async function (event) {
-            event.preventDefault()
-            await blockFromList(event)
-        })
+        // document.getElementById("actorForm").addEventListener("submit", async function (event) {
+        //     event.preventDefault()
+        //     await blockFromList(event, type)
+        // })
 
-        async function blockFromList(event) {
+        async function blockFromList(type) {
             event.preventDefault()
             const actorId = document.getElementById("actorId").value
             if (!actorId) {
@@ -115,6 +115,12 @@
                 document.getElementById("result").textContent = `Error retrieving list items.`
                 return
             }
+            if (didList.length === 0) {
+                console.log(`No items found in this list.`)
+                document.getElementById("result").textContent = `No items found in this list.`
+                return
+            }
+            console.log(`DidList: ${didList}`)
 
             did = await resolveHandle(actorId)
             if (!did) {
@@ -134,26 +140,147 @@
                 return
             }
 
-            const success = await blockDidList(session, service, did, didList)
-            if (!success) {
-                document.getElementById("result").textContent = `Error blocking DID list.`
+            const curBlockList = await getBlocks(did, service)
+            if (!curBlockList) {
+                document.getElementById("result").textContent = `Error gathering current list of blocks.`
                 return
             }
 
-            document.getElementById("result").textContent = `List successfully blocked.`
+            if (type === 'block') {
+                let [successfulBlocks, failedBlocks] = await blockDidList(session, service, did, didList, curBlockList)
+                console.log(successfulBlocks, failedBlocks)
+                let outputHtml = `<div>`
+                if (successfulBlocks.length > 0) {
+                    outputHtml +=`<b>DIDs successfully blocked:</b>
+                    <ul>
+                        ${successfulBlocks.map(did => `<li>${did}</li>`).join('')}
+                    </ul>`
+                }
+                if (failedBlocks.length > 0) {
+                    outputHtml += `<b>DIDs failed to block:</b>
+                        <ul>
+                            ${failedBlocks.map(did => `<li>${did}</li>`).join('')}
+                        </ul>`
+                    }
+                if ((successfulBlocks.length === 0) && (failedBlocks.length === 0)) {
+                    outputHtml += `<p>Operation completed with no actions</p>`
+                }
+                outputHtml += `</div>`
+                document.getElementById("result").innerHTML = outputHtml
+
+            } else if (type === 'unblock') {
+                let [successfulUnblocks, failedUnblocks] = await unblockDidList(session, service, did, didList, curBlockList)
+                console.log(successfulUnblocks, failedUnblocks)
+                let outputHtml = `<div>`
+                if (successfulUnblocks.length > 0) {
+                    outputHtml +=`<b>DIDs successfully unblocked:</b>
+                    <ul>
+                        ${successfulUnblocks.map(did => `<li>${did}</li>`).join('')}
+                    </ul>`
+                }
+                if (failedUnblocks.length > 0) {
+                    outputHtml += `<b>DIDs failed to unblock:</b>
+                        <ul>
+                            ${failedUnblocks.map(did => `<li>${did}</li>`).join('')}
+                        </ul>`
+                    }
+                if ((successfulUnblocks.length === 0) && (failedUnblocks.length === 0)) {
+                    outputHtml += `<p>Operation completed with no actions</p>`
+                }
+                outputHtml += `</div>`
+                document.getElementById("result").innerHTML = outputHtml
+            }
         }
 
-        async function blockDidList(session, service, did, didList) {
-            const api = `${service}/xrpc/com.atproto.repo.createRecord`;
-            const token = session.accessJwt;
+        async function unblockDidList(session, service, did, didList, blockList) {
+            console.log(session, service, did, didList, blockList)
+            didList = new Set(didList)
+            let failedUnblocks = []
+            let successfulUnblocks = []
+            for (const blockRecord of blockList) {
+                if (didList.has(blockRecord.value.subject)) {
+                    success = await deleteBlockRecord(session, service, did, blockRecord.uri)
+                    if (!success) {
+                        console.error(`Error trying to unblock ${blockRecord.value.subject}`)
+                        failedBlocks.push(blockRecord.value.subject)
+                    } else {
+                        successfulUnblocks.push(blockRecord.value.subject)
+                    }
+                }
+            }
+            return [successfulUnblocks, failedUnblocks]
+        }
+
+        async function deleteBlockRecord(session, service, did, uri) {
+            const api = `${service}/xrpc/com.atproto.repo.deleteRecord`
+            const token = session.accessJwt
+            const rkey = uri.replace(/\/$/, '').split('/').pop()
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            }
+            const body = {
+                repo: did,
+                collection: `app.bsky.graph.block`,
+                rkey: rkey
+            }
+            const res = await fetch(api, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(body)
+            })
+            if (!res.ok) {
+                const errorText = await res.text()
+                throw new Error(`HTTP error status ${res.status}: ${errorText}}`)
+            }
+            return true
+        }
+
+        async function getBlocks(did, service) {
+            const api = `${service}/xrpc/com.atproto.repo.listRecords`
+            let cursor = undefined
+            const LIMIT = 100
+            let blockList = []
+
+            while (true) {
+                const params = new URLSearchParams({
+                    repo: did,
+                    collection: `app.bsky.graph.block`,
+                    limit: LIMIT,
+                    cursor: cursor
+                }).toString()
+                const res = await fetch(`${api}?${params}`)
+                const data = await res.json()
+                if (data.records && data.records.length > 0) {
+                    blockList = blockList.concat(data.records)
+                } else {
+                    break
+                }
+                cursor = data.cursor
+                if (!cursor) break
+            }
+            return blockList
+        }
+
+        async function blockDidList(session, service, did, didList, curBlockList) {
+            const api = `${service}/xrpc/com.atproto.repo.createRecord`
+            const token = session.accessJwt
+            let failedBlocks = []
+            let successfulBlocks = []
 
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`,
-            };
+            }
+
+            let curBlockDids = new Set(curBlockList.map(blockRecord => blockRecord.value.subject))
 
             for (const blockDid of didList) {
+                if (curBlockDids.has(blockDid)) {
+                    continue
+                }
                 const payload = {
                     repo: did,
                     collection: `app.bsky.graph.block`,
@@ -161,20 +288,24 @@
                         createdAt: new Date().toISOString(),
                         subject: blockDid,
                     },
-                };
+                }
 
-                const response = await fetch(api, {
+                const res = await fetch(api, {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify(payload),
-                });
+                })
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error status: ${response.status}`);
+                if (!res.ok) {
+                    const errorText = await res.text()
+                    failedBlocks.push(blockDid)
+                    throw new Error(`HTTP error status ${res.status}: ${errorText}}`)
+                } else {
+                    successfulBlocks.push(blockDid)
                 }
             }
 
-            return true;
+            return [successfulBlocks, failedBlocks]
         }
 
         async function getListItems(listUri) {
@@ -188,7 +319,7 @@
                 if (data.items && data.items.length > 0) {
                     const items = data.items
                     for (let idx = 0; idx < items.length; idx++) {
-                        didList.push(items[idx].subject.did);
+                        didList.push(items[idx].subject.did)
                     }
                 } else {
                     break
@@ -200,22 +331,22 @@
         }
 
         async function listUrlToUri(listUrl) {
-            const parts = listUrl.replace(/\/$/, '').replace("https://", "").split('/');
+            const parts = listUrl.replace(/\/$/, '').replace("https://", "").split('/')
 
             if (parts.length > 5) {
-                throw new Error(`Post URL '${listUrl}' has too many segments.`);
+                throw new Error(`Post URL '${listUrl}' has too many segments.`)
             }
             if (parts.length < 5) {
-                throw new Error(`Post URL '${listUrl}' does not have enough segments.`);
+                throw new Error(`Post URL '${listUrl}' does not have enough segments.`)
             }
 
-            const rkey = parts[parts.length - 1];
-            const handle = parts[parts.length - 3];
+            const rkey = parts[parts.length - 1]
+            const handle = parts[parts.length - 3]
 
             const did = await resolveHandle(handle)
             if (!did) return undefined
 
-            return `at://${did}/app.bsky.graph.list/${rkey}`;
+            return `at://${did}/app.bsky.graph.list/${rkey}`
         }
 
         async function getSession(username, password) {
