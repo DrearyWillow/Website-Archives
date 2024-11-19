@@ -9,8 +9,7 @@
     <link href="../../styles.css" rel="stylesheet" type="text/css" media="all">
 </head>
 
-<body>
-    <script> let FF_FOUC_FIX; </script>
+<body style="visibility: hidden;">
     <h1>Block a List of Users</h1>
 
     <form id="actorForm">
@@ -19,31 +18,31 @@
                 <label for="actorId">Handle:</label>
                 <input type="text" id="actorId" name="actorId" placeholder="Enter your handle" required>
             </div>
-    
+
             <div>
                 <label for="appPassword">App Password:</label>
                 <input type="text" id="appPassword" name="appPassword" placeholder="Enter your app password" required>
             </div>
-    
+
             <div>
                 <label for="listUrl">List link:</label>
                 <input type="text" id="listUrl" name="listUrl" placeholder="Enter the list URL" required>
             </div>
-    
+
             <div id="checkbox-container">
                 <input type="checkbox" id="excludeFollows" name="excludeFollows">
                 <label for="excludeFollows">Don't block accounts I follow</label>
             </div>
-    
+
             <div id="checkbox-container">
                 <button type="button" onclick="blockFromList('block')">Block List</button>
                 <button type="button" onclick="blockFromList('unblock')">Unblock List</button>
             </div>
         </div>
     </form>
-    
+
     <pre id="result"></pre>
-    
+
     <style>
         #actorForm {
             width: 100%;
@@ -74,7 +73,7 @@
             width: 100%;
             padding: 10px;
             box-sizing: border-box;
-            background-color: #333; 
+            background-color: #333;
             color: white;
             border: 1px solid #444;
         }
@@ -93,13 +92,13 @@
             margin: 5px;
             cursor: pointer;
             background-color: #333;
-            color: white; 
+            color: white;
             border: 1px solid #444;
             font-weight: bold;
         }
 
         button:hover {
-            background-color: #555; 
+            background-color: #555;
         }
 
         #inputContainer button {
@@ -115,7 +114,7 @@
             display: inline-block;
             margin-right: 10px;
         }
-        
+
         #excludeFollows {
             margin-right: 10px;
         }
@@ -164,14 +163,22 @@
             margin-top: 0;
         }
 
-        #actorForm ::selection, #result ::selection {
+        #actorForm ::selection,
+        #result ::selection {
             background-color: rgba(73, 73, 73, .8);
             color: inherit;
         }
     </style>
-    
 
     <script>
+
+        let domReady = (cb) => {
+            document.readyState === 'interactive' || document.readyState === 'complete'
+                ? cb()
+                : document.addEventListener('DOMContentLoaded', cb)
+        }
+        domReady(() => { document.body.style.visibility = 'visible' })
+
         async function blockFromList(type) {
             event.preventDefault()
             document.getElementById("result").textContent = `Gathering data...`
@@ -249,7 +256,7 @@
                 console.log(successfulBlocks, failedBlocks)
                 let outputHtml = `<div>`
                 if (successfulBlocks.length > 0) {
-                    outputHtml +=`<b>DIDs successfully blocked:</b>
+                    outputHtml += `<b>DIDs successfully blocked:</b>
                     <ul>
                         ${successfulBlocks.map(did => `<li>${did}</li>`).join('')}
                     </ul>`
@@ -259,7 +266,7 @@
                         <ul>
                             ${failedBlocks.map(did => `<li>${did}</li>`).join('')}
                         </ul>`
-                    }
+                }
                 if ((successfulBlocks.length === 0) && (failedBlocks.length === 0)) {
                     outputHtml += `<p>Operation completed with no actions</p>`
                 }
@@ -271,7 +278,7 @@
                 console.log(successfulUnblocks, failedUnblocks)
                 let outputHtml = `<div>`
                 if (successfulUnblocks.length > 0) {
-                    outputHtml +=`<b>DIDs successfully unblocked:</b>
+                    outputHtml += `<b>DIDs successfully unblocked:</b>
                     <ul>
                         ${successfulUnblocks.map(did => `<li>${did}</li>`).join('')}
                     </ul>`
@@ -281,7 +288,7 @@
                         <ul>
                             ${failedUnblocks.map(did => `<li>${did}</li>`).join('')}
                         </ul>`
-                    }
+                }
                 if ((successfulUnblocks.length === 0) && (failedUnblocks.length === 0)) {
                     outputHtml += `<p>Operation completed with no actions</p>`
                 }
