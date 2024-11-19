@@ -173,6 +173,7 @@
     <script>
         async function blockFromList(type) {
             event.preventDefault()
+            document.getElementById("result").textContent = `Gathering data...`
             const actorId = document.getElementById("actorId").value
             if (!actorId) {
                 document.getElementById("result").textContent = `Error: no actor entered.`
@@ -230,10 +231,16 @@
                 return
             }
 
-            const followList = await getFollows(did)
-            if (!followList || followList === 0) {
-                document.getElementById("result").textContent = `Error gathering list of followers.`
-                return
+            let followList
+            if (document.getElementById("excludeFollows").checked) {
+                followList = await getFollows(did)
+                if (!followList || followList === 0) {
+                    document.getElementById("result").textContent = `Error gathering list of followers.`
+                    return
+                }
+                console.log(`followList: ${followList}`)
+            } else {
+                followList = []
             }
 
             if (type === 'block') {
@@ -368,6 +375,7 @@
             let excludeFollows = document.getElementById("excludeFollows").checked
             let curBlockDids = new Set(curBlockList.map(blockRecord => blockRecord.value.subject))
             followList = new Set(followList)
+            console.log(`set followList: ${followList}`)
 
             for (const blockDid of didList) {
                 if (curBlockDids.has(blockDid)) {
@@ -410,6 +418,10 @@
             let didList = []
             while (true) {
                 const res = await fetch(`${api}?list=${listUri}&limit=${LIMIT}&cursor=${cursor}`)
+                if (!res.ok) {
+                    const errorText = await res.text()
+                    throw new Error(`HTTP error status ${res.status}: ${errorText}}`)
+                }
                 const data = await res.json()
                 if (data.items && data.items.length > 0) {
                     const items = data.items
@@ -431,7 +443,12 @@
             const api = 'https://public.api.bsky.app/xrpc/app.bsky.graph.getFollows'
             let followList = []
             while (true) {
-                const res = await fetch(`${api}?list=${did}&limit=${LIMIT}&cursor=${cursor}`)
+                const res = await fetch(`${api}?actor=${did}&limit=${LIMIT}&cursor=${cursor}`)
+                if (!res.ok) {
+                    const errorText = await res.text()
+                    console.log(`HTTP error status ${res.status}: ${errorText}}`)
+                    throw new Error(`HTTP error status ${res.status}: ${errorText}}`)
+                }
                 const data = await res.json()
                 if (data.follows && data.follows.length > 0) {
                     const follows = data.follows
