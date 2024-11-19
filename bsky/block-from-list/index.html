@@ -13,104 +13,103 @@
     <h1>Block a List of Users</h1>
 
     <form id="actorForm">
-        <div id="inputContainer" style="display: flex; flex-wrap: wrap; flex-direction: column; gap: 10px; justify-content: center;">
-            <div style="display: flex; flex-direction: row; align-items: flex-start;">
-                <label for="actorId" style="color: white;">Handle:</label>
+        <div id="inputContainer">
+            <div>
+                <label for="actorId">Handle:</label>
                 <input type="text" id="actorId" name="actorId" placeholder="Enter your handle" required>
             </div>
-        
-            <div style="display: flex; flex-direction: row; align-items: flex-start;">
-                <label for="appPassword" style="color: white;">App Password:</label>
+    
+            <div>
+                <label for="appPassword">App Password:</label>
                 <input type="text" id="appPassword" name="appPassword" placeholder="Enter your app password" required>
             </div>
-        
-            <div style="display: flex; flex-direction: row; align-items: flex-start;">
-                <label for="listUrl" style="color: white;">List link:</label>
+    
+            <div>
+                <label for="listUrl">List link:</label>
                 <input type="text" id="listUrl" name="listUrl" placeholder="Enter the list URL" required>
             </div>
+    
+            <div>
+                <input type="checkbox" id="excludeFollows" name="excludeFollows">
+                <label for="excludeFollows">Don't block accounts I follow</label>
+            </div>
+    
+            <div>
+                <button type="button" onclick="blockFromList('block')">Block List</button>
+                <button type="button" onclick="blockFromList('unblock')">Unblock List</button>
+            </div>
         </div>
-        <br>
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <input type="checkbox" id="excludeFollows" name="excludeFollows">
-            <label for="excludeFollows" style="color: white;">Exclude blocking accounts you follow</label>
-        </div>
-        <br>
-        <div style="display: flex; max-width: 90%; align-items: center; justify-content: center;">
-            <button type="button" onclick="blockFromList('block')">Block List</button>
-            <button type="button" onclick="blockFromList('unblock')">Unblock List</button>
-        </div>
-        <br>
     </form>
-
-    <pre id="result" style="display: flex; align-items: center; justify-content: center;"></pre>
-
+    
+    <pre id="result"></pre>
+    
     <style>
-        body {
-            padding-right: 15px;
-            padding-left: 15px;
-            margin: 0;
-        }
-    
-        input {
-            background-color: #2C2C2C;
-            color: white;
-            max-width: 550px;
+        /* Basic styles for the form */
+        #actorForm {
             width: 100%;
+            max-width: 600px;
+            margin: 0 auto; /* Center horizontally */
+            padding: 20px;
         }
-    
-        button {
-            background-color: #2C2C2C;
-            color: white;
-            width: 125px;
-            padding: 8px;
-        }
-    
-        button:hover {
-            background-color: #444;
-        }
-    
-        input:focus {
-            border-color: rgb(196, 27, 174);
-            outline: none;
-        }
-    
-        input::placeholder {
-            color: white;
-            opacity: 0.7;
-        }
-    
-        #actorForm ::selection,
-        #result ::selection {
-            background-color: rgba(73, 73, 73, .8);
-            color: inherit;
-        }
-    
+
+        /* Center the input container horizontally */
         #inputContainer {
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-    
-        #inputContainer > div {
-            display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
         }
-    
-        @media (max-width: 450px) {
-            #inputContainer {
-                flex-direction: column;
-                align-items: center;
-            }
-    
-            #inputContainer > div {
-                width: 100%;
-                align-items: center;
-            }
+
+        /* Style for each input field and label */
+        #inputContainer div {
+            width: 100%;
+            margin-bottom: 15px;
         }
+
+        /* Style for labels and inputs */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        /* Style for the buttons */
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        /* Make buttons horizontal */
+        #inputContainer button {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /* Style for checkbox and label to be horizontal */
+        #excludeFollows {
+            margin-right: 10px;
+        }
+
+        #inputContainer label[for="excludeFollows"] {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        /* Optional: Add styles for result output */
+        #result {
+            margin-top: 20px;
+            font-family: monospace;
+        }
+
+        
     </style>
+    
 
     <script>
         async function blockFromList(type) {
