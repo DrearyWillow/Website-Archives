@@ -13,23 +13,22 @@
     <h1>Block a List of Users</h1>
 
     <form id="actorForm">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
-                <label for="actorId" style="color: white; align-self: flex-start;">Handle:</label>
+        <div id="inputContainer" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <label for="actorId" style="color: white;">Handle:</label>
                 <input type="text" id="actorId" name="actorId" placeholder="Enter your handle" required>
-    
-                <label for="appPassword" style="color: white; align-self: flex-start;">App Password:</label>
+            </div>
+        
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <label for="appPassword" style="color: white;">App Password:</label>
                 <input type="text" id="appPassword" name="appPassword" placeholder="Enter your app password" required>
-    
-                <label for="listUrl" style="color: white; align-self: flex-start;">List link:</label>
+            </div>
+        
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <label for="listUrl" style="color: white;">List link:</label>
                 <input type="text" id="listUrl" name="listUrl" placeholder="Enter the list URL" required>
             </div>
         </div>
-        <br>
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <input type="checkbox" id="excludeFollows" name="excludeFollows">
-            <label for="excludeFollows" style="color: white;">Exclude blocking accounts you follow</label>
-        </div>        
         <br>
         <div style="display: flex; max-width: 90%; align-items: center; justify-content: center;">
             <button type="button" onclick="blockFromList('block')">Block List</button>
@@ -46,56 +45,64 @@
             padding-left: 15px;
             margin: 0;
         }
-
+    
         input {
             background-color: #2C2C2C;
             color: white;
             max-width: 550px;
             width: 100%;
         }
-
+    
         button {
             background-color: #2C2C2C;
             color: white;
             width: 125px;
             padding: 8px;
         }
-
+    
         button:hover {
             background-color: #444;
         }
-
+    
         input:focus {
             border-color: rgb(196, 27, 174);
             outline: none;
         }
-
+    
         input::placeholder {
             color: white;
             opacity: 0.7;
         }
-
-
-        pre p {
-            color: white;
-            white-space: normal;
-            width: 100%;
-        }
-
+    
         #actorForm ::selection,
         #result ::selection {
             background-color: rgba(73, 73, 73, .8);
             color: inherit;
         }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.5rem;
+    
+        #inputContainer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+    
+        #inputContainer > div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    
+        @media (max-width: 450px) {
+            #inputContainer {
+                flex-direction: column;
+                align-items: center;
             }
-
-            button {
+    
+            #inputContainer > div {
                 width: 100%;
-                max-width: 200px;
+                align-items: center;
             }
         }
     </style>
