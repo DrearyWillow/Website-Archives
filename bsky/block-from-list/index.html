@@ -95,46 +95,38 @@
         }
 
         #inputContainer button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        #inputContainer #checkbox-container button {
             display: inline-block;
             margin-right: 10px;
         }
-
+        
         #excludeFollows {
             margin-right: 10px;
         }
 
         input[type="checkbox"] {
-            background-color: #333; /* Dark background */
+            background-color: #333;
             border: 1px solid #444;
         }
 
-        /* Change color of checkbox when checked */
         input[type="checkbox"]:checked {
-            background-color: #C41BAE; /* Color when checked */
+            background-color: #C41BAE;
         }
 
-        /* Do not center checkbox + label and button pairs */
-        #inputContainer .checkbox-container {
+        #inputContainer #checkbox-container {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
         }
-
-        
-
-        /*
-
-        #inputContainer button {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        #inputContainer .checkbox-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }*/
 
         #inputContainer label[for="excludeFollows"] {
             display: inline-block;
@@ -145,8 +137,6 @@
             margin-top: 20px;
             font-family: monospace;
         }
-
-        
     </style>
     
 
