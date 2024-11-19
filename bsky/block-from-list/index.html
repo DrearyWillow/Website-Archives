@@ -29,12 +29,12 @@
                 <input type="text" id="listUrl" name="listUrl" placeholder="Enter the list URL" required>
             </div>
     
-            <div>
+            <div id="checkbox-container">
                 <input type="checkbox" id="excludeFollows" name="excludeFollows">
                 <label for="excludeFollows">Don't block accounts I follow</label>
             </div>
     
-            <div>
+            <div id="checkbox-container">
                 <button type="button" onclick="blockFromList('block')">Block List</button>
                 <button type="button" onclick="blockFromList('unblock')">Unblock List</button>
             </div>
@@ -47,24 +47,21 @@
         #actorForm {
             width: 100%;
             max-width: 600px;
-            margin: 0 auto; /* Center horizontally */
+            margin: 0 auto;
             padding: 20px;
         }
 
-        /* Center the input container horizontally */
         #inputContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Style for each input field and label */
         #inputContainer div {
             width: 100%;
             margin-bottom: 15px;
         }
 
-        /* Style for labels and inputs */
         label {
             display: block;
             margin-bottom: 5px;
@@ -75,8 +72,8 @@
             width: 100%;
             padding: 10px;
             box-sizing: border-box;
-            background-color: #333; /* Dark background */
-            color: white; /* White text */
+            background-color: #333; 
+            color: white;
             border: 1px solid #444;
         }
 
@@ -84,32 +81,39 @@
             border-color: #888;
         }
 
-        /* Style for the buttons */
         button {
             padding: 10px 20px;
             margin: 5px;
             cursor: pointer;
-            background-color: #333; /* Dark background */
-            color: white; /* White text */
+            background-color: #333;
+            color: white; 
             border: 1px solid #444;
         }
 
         button:hover {
-            background-color: #555; /* Slightly lighter on hover */
+            background-color: #555; 
         }
 
-        /* Make buttons horizontal */
         #inputContainer button {
             display: inline-block;
             margin-right: 10px;
         }
 
-        /* Style for checkbox and label to be horizontal */
         #excludeFollows {
             margin-right: 10px;
         }
 
-        /* Center checkbox + label and button pair */
+        input[type="checkbox"] {
+            background-color: #333; /* Dark background */
+            border: 1px solid #444;
+        }
+
+        /* Change color of checkbox when checked */
+        input[type="checkbox"]:checked {
+            background-color: #C41BAE; /* Color when checked */
+        }
+
+        /* Do not center checkbox + label and button pairs */
         #inputContainer .checkbox-container {
             display: flex;
             justify-content: center;
@@ -117,13 +121,26 @@
             width: 100%;
         }
 
-        /* Style for checkbox and label */
+        
+
+        /*
+
+        #inputContainer button {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #inputContainer .checkbox-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }*/
+
         #inputContainer label[for="excludeFollows"] {
             display: inline-block;
             margin-bottom: 0;
         }
 
-        /* Optional: Add styles for result output */
         #result {
             margin-top: 20px;
             font-family: monospace;
