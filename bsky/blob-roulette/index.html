@@ -112,7 +112,7 @@
       event.preventDefault()
 
       const actorInput = document.getElementById("actorUrl").value
-      let actor = actorCache.actorInput
+      let actor = actorCache[actorInput]
       console.log(`actorCache: ${JSON.stringify(actorCache, null, 2)}`)
       if (!actor) {
         console.log(`No actor cache for`, actorInput)
