@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bsky Blob Roulette</title>
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <link href="../../styles.css" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body>
+  <h1>Blob Roulette</h1>
+
+  <form id="actorForm">
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <input type="text" id="actorUrl" name="actorUrl" placeholder="Handle, DID, Profile URL, or AT-URI" required>
+    </div>
+    <br>
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <button type="button" onclick="getRandomMedia(event)">Get Random Media</button>
+      <!-- <button type="button" onclick="displayCache(event)">Display Cache</button> -->
+    </div>
+    <br>
+  </form>
+
+  <pre id="result" style="display: flex; align-items: center; justify-content: center;"></pre>
+
+  <style>
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    .button-on-image {
+      margin-bottom: 5px;
+    }
+
+    .resize-img {
+      max-height: 60vh;
+      max-width: 70%;
+      height: auto;
+      width: auto;
+      margin: 0 auto;
+      display: block;
+    }
+
+    body {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    input {
+      background-color: #2C2C2C;
+      color: white;
+      width: 550px;
+    }
+
+    button {
+      background-color: #2C2C2C;
+      color: white;
+      width: 125px;
+      cursor: pointer;
+    }
+
+    input:focus {
+      border-color: rgb(196, 27, 174);
+      outline: none;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .container div {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding-left: 10px;
+      padding-right: 10px;
+      white-space: normal;
+    }
+
+    pre p {
+      color: white;
+      white-space: normal;
+      width: 100%;
+    }
+
+    #actorForm ::selection,
+    #result ::selection {
+      background-color: rgba(73, 73, 73, .8);
+      color: inherit;
+    }
+  </style>
+
+  <script>
+    document.getElementById("actorForm").addEventListener("submit", async function (event) {
+      event.preventDefault()
+    })
+
+    let postsCache = {}
+    let actorCache = {}
+
+    async function getRandomMedia(event) {
+      event.preventDefault()
+
+      const actorInput = document.getElementById("actorUrl").value
+      let actor = actorCache.actorInput
+      console.log(`actorCache: ${JSON.stringify(actorCache, null, 2)}`)
+      if (!actor) {
+        console.log(`Resolving handle...`, actor)
+        document.getElementById("result").textContent = `Resolving handle...`
+        actor = await validateActor(actorInput)
+      }
+      if (!actor) {
+        document.getElementById("result").textContent = `Error: invalid actor entered.`
+        return
+      }
+      actorCache[actorInput] = actor
+
+      let posts
+      document.getElementById("result").textContent = `Hang tight. This might take a second...`
+      if (!(posts = postsCache[actor])) {
+        try {
+          posts = await getMediaList(actor)
+        } catch (error) {
+          console.error(`Error fetching media for ${actor}:`, error)
+          document.getElementById("result").textContent = `Failed to fetch media.`
+          return
+        }
+      }
+      if (!posts || posts.length === 0) {
+        console.error(`No media posts available for ${actor}`)
+        document.getElementById("result").textContent = `No images available.`
+        return
+      }
+      let did = posts[0].post.author.did
+      postsCache[did] = posts
+
+      let sel = getRandItem(posts)
+      let imageUrl = getImageUrl(sel)
+      console.log(`image: ${imageUrl}`)
+
+      document.getElementById("result").innerHTML = `<div class="image-container">
+        <a href="${uri2bsky(sel.post.uri)}" target="_blank"><button class="button-on-image">Go to bsky post</button></a>
+        <img src="${imageUrl}" class="resize-img">
+      </div>`
+
+    }
+
+    // function displayCache(event) {
+    //   event.preventDefault()
+    //   console.log(postsCache)
+    // }
+
+    function getRandItem(list) {
+      let len = list.length
+      let randNum = Math.floor(Math.random() * len)
+      console.log(`Random number: ${randNum} / ${len}`)
+      return list[randNum]
+    }
+
+    function getImageUrl(sel) {
+      console.log(`selected: ${JSON.stringify(sel, null, 2)}`)
+      let embed = sel?.post?.embed
+      let mediaType = sel?.post?.embed?.$type
+      if (mediaType === `app.bsky.embed.recordWithMedia#view`) {
+        mediaType = embed.media.$type
+        embed = embed.media
+      }
+      let imageUrl
+      if (mediaType === `app.bsky.embed.video#view`) {
+        imageUrl = embed.thumbnail
+      } else if (mediaType === `app.bsky.embed.images#view`) {
+        imageUrl = getRandItem(embed.images).thumb
+      } else {
+        console.log(`Unrecognized media`)
+        return
+      }
+      if (!imageUrl) {
+        console.error(`Invalid post structure: ${JSON.stringify(sel, null, 2)}`)
+        document.getElementById("result").textContent = `Image not found.`
+        return
+      }
+      return imageUrl
+    }
+
+    function uri2bsky(uri) {
+      const cleanedUrl = uri.replace("at://", "")
+      const parts = cleanedUrl.split("/")
+      return `https://bsky.app/profile/${parts[0]}/post/${parts[2]}`
+    }
+
+    async function validateActor(actorUrl) {
+      if (!actorUrl) {
+        document.getElementById("result").textContent = `Error: no actor entered.`
+        return
+      }
+      console.log(`Actor URL: ${actorUrl}`)
+      let actor = actorUrl.replace("@", "").replace("at://", "").replace("https://bsky.app/profile/", "").replace("https://main.bsky.dev/profile/", "").split("/")[0]
+      console.log(`Actor: ${actor}`)
+      actor = await resolveDid(actor)
+      console.log(`DID: ${actor}`)
+      return actor
+    }
+
+    function traverse(obj, path) {
+      return path.reduce((node, key) => node && node[key], obj)
+    }
+
+    async function generic_page_loop(api, params, pathToOutput, pathToCursor) {
+      try {
+        let res = await (await fetch(`${api}?${await new URLSearchParams(params).toString()}`)).json()
+        let output = traverse(res, pathToOutput) || []
+        while (params['cursor'] = traverse(res, pathToCursor)) {
+          res = await (await fetch(`${api}?${await new URLSearchParams(params).toString()}`)).json()
+          output = output.concat(traverse(res, pathToOutput)) || []
+        }
+        return output
+      } catch (error) {
+        console.error("Error during pagination", error)
+        document.getElementById("result").textContent = `Error: ${error}`
+        throw error
+      }
+    }
+
+    async function getMediaList(actor) {
+      api = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed`
+      params = {
+        'limit': 100,
+        'actor': actor,
+        'filter': 'posts_with_media',
+        'includePins': false
+      }
+      posts = await generic_page_loop(api, params, ['feed'], ['cursor'])
+      // console.log("Full posts structure:", JSON.stringify(posts, null, 2))
+      return posts
+    }
+
+    async function resolveDid(handle) {
+      if (handle.startsWith("did:")) { return handle }
+      if (handle.startsWith("@")) { handle = handle.slice(1) }
+      const response = await fetch(`https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${handle}`)
+      if (!response.ok) {
+        document.getElementById("result").textContent = `Error: failed to resolve DID`
+        throw new Error(`Failed to resolve DID: ${await response.text()}`)
+      }
+      return (await response.json()).did
+    }
+
+  </script>
+</body>
+
+</html>
