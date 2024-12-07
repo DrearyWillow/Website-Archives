@@ -115,7 +115,7 @@
       let actor = actorCache.actorInput
       console.log(`actorCache: ${JSON.stringify(actorCache, null, 2)}`)
       if (!actor) {
-        console.log(`Resolving handle...`, actor)
+        console.log(`No actor cache for`, actorInput)
         document.getElementById("result").textContent = `Resolving handle...`
         actor = await validateActor(actorInput)
       }
@@ -163,12 +163,12 @@
     function getRandItem(list) {
       let len = list.length
       let randNum = Math.floor(Math.random() * len)
-      console.log(`Random number: ${randNum} / ${len}`)
+      console.log(`Random number: ${randNum + 1} / ${len}`)
       return list[randNum]
     }
 
     function getImageUrl(sel) {
-      console.log(`selected: ${JSON.stringify(sel, null, 2)}`)
+      // console.log(`selected: ${JSON.stringify(sel, null, 2)}`)
       let embed = sel?.post?.embed
       let mediaType = sel?.post?.embed?.$type
       if (mediaType === `app.bsky.embed.recordWithMedia#view`) {
