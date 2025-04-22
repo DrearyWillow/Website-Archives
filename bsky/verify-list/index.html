@@ -328,7 +328,7 @@
                         newVerifyRecords.push(record)
                     }
                 } catch (err) {
-                    console.warning(`Failed to process DID: ${d}`, err)
+                    console.warn(`Failed to process DID: ${d}`, err)
                     failedDids.push(d)
                 }
             }
