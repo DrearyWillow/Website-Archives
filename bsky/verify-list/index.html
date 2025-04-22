@@ -233,7 +233,7 @@
                 return
             }
 
-            let [newVerifyRecords, existingVerifyDids] = await constructNewVerifyRecords(service, did, didList, curVerifyRecords)
+            let [newVerifyRecords, existingVerifyDids, failedDids] = await constructNewVerifyRecords(service, did, didList, curVerifyRecords)
             console.log(`new verify records to attempt: `, newVerifyRecords)
             console.log(`existing dids with verification records:`, existingVerifyDids)
             const chunkSize = 200
@@ -255,7 +255,13 @@
                             ${existingVerifyDids.map(did => `<li>${did}</li>`).join('')}
                         </ul>`
             }
-            if ((newVerifyRecords.length === 0) && (existingVerifyDids.length === 0)) {
+            if (failedDids.length > 0) {
+                outputHtml += `<b>DIDs with existing matching verification records:</b>
+                        <ul>
+                            ${failedDids.map(did => `<li>${did}</li>`).join('')}
+                        </ul>`
+            }
+            if ((newVerifyRecords.length === 0) && (existingVerifyDids.length === 0) && (failedDids.length === 0)) {
                 outputHtml += `<p>Operation completed with no actions</p>`
             }
             outputHtml += `</div>`
@@ -302,26 +308,32 @@
         async function constructNewVerifyRecords(service, did, didList, curVerifyRecords) {
             const newVerifyRecords = []
             const existingVerifyDids = []
+            const failedDids = []
 
             const makeKey = r => `${r.value.handle}|${r.value.subject}|${r.value.displayName}`
             const existingKeys = new Set(curVerifyRecords.map(makeKey))
 
             for (const d of didList) {
-                const record = {
-                    "$type": "app.bsky.graph.verification",
-                    "handle": await retrieveHandle(d),
-                    "subject": d,
-                    "createdAt": new Date().toISOString(),
-                    "displayName": (await getBskyProfile(service, d)).value.displayName
-                }
-                if (existingKeys.has(`${record.handle}|${record.subject}|${record.displayName}`)) {
-                    existingVerifyDids.push(d)
-                } else {
-                    newVerifyRecords.push(record)
+                try {
+                    const record = {
+                        "$type": "app.bsky.graph.verification",
+                        "handle": await retrieveHandle(d),
+                        "subject": d,
+                        "createdAt": new Date().toISOString(),
+                        "displayName": (await getBskyProfile(service, d)).value.displayName
+                    }
+                    if (existingKeys.has(`${record.handle}|${record.subject}|${record.displayName}`)) {
+                        existingVerifyDids.push(d)
+                    } else {
+                        newVerifyRecords.push(record)
+                    }
+                } catch (err) {
+                    console.warning(`Failed to process DID: ${d}`, err)
+                    failedDids.push(d)
                 }
             }
 
-            return [newVerifyRecords, existingVerifyDids]
+            return [newVerifyRecords, existingVerifyDids, failedDids]
         }
 
         async function applyWritesCreate(session, service, records) {
