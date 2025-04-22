@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify from List</title>
+    <title>Verify a Bsky List</title>
     <link rel="icon" type="image/x-icon" href="../../favicon.ico">
     <link href="../../styles.css" rel="stylesheet" type="text/css" media="all">
 </head>
@@ -225,7 +225,7 @@
                 document.getElementById("result").textContent = `No items found in this list.`
                 return
             }
-            console.log(`DidList: ${didList}`)
+            console.log(`DIDs in list: ${didList}`)
 
             const curVerifyRecords = await getVerifyRecords(did, service)
             if (!curVerifyRecords || curVerifyRecords === 0) {
@@ -256,7 +256,7 @@
                         </ul>`
             }
             if (failedDids.length > 0) {
-                outputHtml += `<b>DIDs with existing matching verification records:</b>
+                outputHtml += `<b>DIDs that failed to create verification record:</b>
                         <ul>
                             ${failedDids.map(did => `<li>${did}</li>`).join('')}
                         </ul>`
