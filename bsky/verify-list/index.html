@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify from List</title>
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link href="../../styles.css" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body style="visibility: hidden;">
+    <h1>Verify a List of Users</h1>
+
+    <form id="actorForm">
+        <div id="inputContainer">
+            <div>
+                <label for="actorId">Handle:</label>
+                <input type="text" id="actorId" name="actorId" placeholder="Enter your handle" required>
+            </div>
+
+            <div>
+                <label for="appPassword">App Password:</label>
+                <input type="text" id="appPassword" name="appPassword" placeholder="Enter your app password" required>
+            </div>
+
+            <div>
+                <label for="listUrl">List link:</label>
+                <input type="text" id="listUrl" name="listUrl" placeholder="Enter the list URL" required>
+            </div>
+
+            <div id="checkbox-container">
+                <button type="button" onclick="verifyFromList()">Verify List</button>
+            </div>
+        </div>
+    </form>
+
+    <pre id="result"></pre>
+
+    <style>
+        #actorForm {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #inputContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #inputContainer div {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #0085b9;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        input[type="text"]:focus {
+            border-color: #888;
+        }
+
+        input:focus {
+            border-color: rgb(196, 27, 174);
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #inputContainer button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        #inputContainer #checkbox-container button {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        #excludeFollows {
+            margin-right: 10px;
+        }
+
+        input[type="checkbox"] {
+            background-color: #333;
+            border: 1px solid #444;
+        }
+
+        input[type="checkbox"]:checked {
+            accent-color: #C41BAE;
+        }
+
+        #inputContainer #checkbox-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        #inputContainer label[for="excludeFollows"] {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-family: monospace;
+        }
+
+        pre {
+            text-align: center;
+        }
+
+        b {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        ul li {
+            margin-top: 0;
+        }
+
+        #actorForm ::selection,
+        #result ::selection {
+            background-color: rgba(73, 73, 73, .8);
+            color: inherit;
+        }
+    </style>
+
+    <script>
+
+        let domReady = (cb) => {
+            document.readyState === 'interactive' || document.readyState === 'complete'
+                ? cb()
+                : document.addEventListener('DOMContentLoaded', cb)
+        }
+        domReady(() => { document.body.style.visibility = 'visible' })
+
+        async function verifyFromList() {
+            event.preventDefault()
+            document.getElementById("result").textContent = `Gathering data...`
+            const actorId = document.getElementById("actorId").value
+            if (!actorId) {
+                document.getElementById("result").textContent = `Error: no actor entered.`
+                return
+            }
+            const appPassword = document.getElementById("appPassword").value
+            if (!appPassword) {
+                document.getElementById("result").textContent = `Error: no app password entered.`
+                return
+            }
+            const listUrl = document.getElementById("listUrl").value
+            if (!listUrl) {
+                document.getElementById("result").textContent = `Error: no list url entered.`
+                return
+            }
+
+            did = await resolveHandle(actorId)
+            if (!did) {
+                document.getElementById("result").textContent = `Error resolving handle.`
+                return
+            }
+            console.log(`DID: ${did}`)
+            const service = await serviceEndpoint(did)
+            if (!service) {
+                document.getElementById("result").textContent = `Error retrieving service endpoint.`
+                return
+            }
+            console.log(`Service Endpoint: ${service}`)
+            const session = await getSession(actorId, appPassword, service)
+            if (!session) {
+                document.getElementById("result").textContent = `Error retrieving auth session.`
+                return
+            }
+
+            listUri = await listUrlToUri(listUrl)
+            if (!listUri) {
+                document.getElementById("result").textContent = `Error retrieving list uri.`
+                return
+            }
+            let didList = await getListItems(listUri)
+            if (!didList) {
+                document.getElementById("result").textContent = `Error retrieving list items.`
+                return
+            }
+            if (didList.length === 0) {
+                console.log(`No items found in this list.`)
+                document.getElementById("result").textContent = `No items found in this list.`
+                return
+            }
+            console.log(`DidList: ${didList}`)
+
+            const curVerifyRecords = await getVerifyRecords(did, service)
+            if (!curVerifyRecords || curVerifyRecords === 0) {
+                document.getElementById("result").textContent = `Error gathering current list of verifications.`
+                return
+            }
+
+            let [newVerifyRecords, existingVerifyDids] = await constructNewVerifyRecords(service, did, didList, curVerifyRecords)
+            console.log(`new verify records to attempt: `, newVerifyRecords)
+            console.log(`existing dids with verification records:`, existingVerifyDids)
+            const chunkSize = 200
+            for (let i = 0; i < newVerifyRecords.length; i += chunkSize) {
+                const chunk = newVerifyRecords.slice(i, i + chunkSize)
+                await applyWritesCreate(session, service, chunk)
+            }
+            // i'm not really verifying that the new records were created directly from the applyWrites, but zzzz idc
+            let outputHtml = `<div>`
+            if (newVerifyRecords.length > 0) {
+                outputHtml += `<b>DIDs successfully verified:</b>
+                    <ul>
+                        ${newVerifyRecords.map(r => `<li>${r.subject}</li>`).join('')}
+                    </ul>`
+            }
+            if (existingVerifyDids.length > 0) {
+                outputHtml += `<b>DIDs with existing matching verification records:</b>
+                        <ul>
+                            ${existingVerifyDids.map(did => `<li>${did}</li>`).join('')}
+                        </ul>`
+            }
+            if ((newVerifyRecords.length === 0) && (existingVerifyDids.length === 0)) {
+                outputHtml += `<p>Operation completed with no actions</p>`
+            }
+            outputHtml += `</div>`
+            document.getElementById("result").innerHTML = outputHtml
+        }
+
+        async function getVerifyRecords(did, service) {
+            const api = `${service}/xrpc/com.atproto.repo.listRecords`
+            let cursor = undefined
+            const LIMIT = 100
+            let verifyList = []
+
+            while (true) {
+                const params = new URLSearchParams({
+                    repo: did,
+                    collection: `app.bsky.graph.verification`,
+                    limit: LIMIT,
+                    cursor: cursor
+                }).toString()
+                const res = await fetch(`${api}?${params}`)
+                const data = await res.json()
+                if (data.records && data.records.length > 0) {
+                    verifyList = verifyList.concat(data.records)
+                } else {
+                    break
+                }
+                cursor = data.cursor
+                if (!cursor) break
+            }
+            return verifyList
+        }
+
+        async function getBskyProfile(service, did) {
+            const api = `${service}/xrpc/com.atproto.repo.getRecord`
+            const params = new URLSearchParams({
+                repo: did,
+                collection: `app.bsky.actor.profile`,
+                rkey: `self`
+            })
+            const res = await fetch(`${api}?${params}`)
+            return await res.json()
+        }
+
+        async function constructNewVerifyRecords(service, did, didList, curVerifyRecords) {
+            const newVerifyRecords = []
+            const existingVerifyDids = []
+
+            const makeKey = r => `${r.value.handle}|${r.value.subject}|${r.value.displayName}`
+            const existingKeys = new Set(curVerifyRecords.map(makeKey))
+
+            for (const d of didList) {
+                const record = {
+                    "$type": "app.bsky.graph.verification",
+                    "handle": await retrieveHandle(d),
+                    "subject": d,
+                    "createdAt": new Date().toISOString(),
+                    "displayName": (await getBskyProfile(service, d)).value.displayName
+                }
+                if (existingKeys.has(`${record.handle}|${record.subject}|${record.displayName}`)) {
+                    existingVerifyDids.push(d)
+                } else {
+                    newVerifyRecords.push(record)
+                }
+            }
+
+            return [newVerifyRecords, existingVerifyDids]
+        }
+
+        async function applyWritesCreate(session, service, records) {
+            const token = session.accessJwt
+            const did = session.did
+            const api = `${service}/xrpc/com.atproto.repo.applyWrites`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+
+            const writes = records.map(record => ({
+                "$type": "com.atproto.repo.applyWrites#create",
+                "collection": record.$type,
+                "value": record,
+            }))
+
+            const payload = {
+                repo: did,
+                writes: writes
+            }
+
+            const res = await fetch(api, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(payload),
+            })
+
+            if (!res.ok) {
+                const errorText = await res.text()
+                let outputHtml = `<div><b>Error during applyWrites:</b><p>${errorText}</p></div>`
+                document.getElementById("result").innerHTML = outputHtml
+                throw new Error(`HTTP error status ${res.status}: ${errorText}`)
+            }
+        }
+
+        async function verifyDidList(session, service, did, verifyKeys, curVerifyList) {
+            const makeKey = r => `${r.value.handle}|${r.value.subject}|${r.value.displayName}`
+            const existingKeys = new Set(existingRecords.map(makeKey))
+            const uniqueNewRecords = verifyKey.filter(r => !existingKeys.has(makeKey(r)))
+
+        }
+
+        async function getListItems(listUri) {
+            const LIMIT = 100
+            let cursor = undefined
+            const api = 'https://public.api.bsky.app/xrpc/app.bsky.graph.getList'
+            let didList = []
+            while (true) {
+                const res = await fetch(`${api}?list=${listUri}&limit=${LIMIT}&cursor=${cursor}`)
+                if (!res.ok) {
+                    const errorText = await res.text()
+                    throw new Error(`HTTP error status ${res.status}: ${errorText}}`)
+                }
+                const data = await res.json()
+                if (data.items && data.items.length > 0) {
+                    const items = data.items
+                    for (let idx = 0; idx < items.length; idx++) {
+                        didList.push(items[idx].subject.did)
+                    }
+                } else {
+                    break
+                }
+                cursor = data.cursor
+                if (!cursor) break
+            }
+            return didList
+        }
+
+        async function listUrlToUri(listUrl) {
+            const parts = listUrl.replace(/\/$/, '').replace("https://", "").split('/')
+
+            if (parts.length > 5) {
+                throw new Error(`Post URL '${listUrl}' has too many segments.`)
+            }
+            if (parts.length < 5) {
+                throw new Error(`Post URL '${listUrl}' does not have enough segments.`)
+            }
+
+            const rkey = parts[parts.length - 1]
+            const handle = parts[parts.length - 3]
+
+            const did = await resolveHandle(handle)
+            if (!did) return undefined
+
+            return `at://${did}/app.bsky.graph.list/${rkey}`
+        }
+
+        async function getSession(username, password) {
+            const url = 'https://bsky.social/xrpc/com.atproto.server.createSession'
+            const payload = {
+                identifier: username,
+                password: password,
+            }
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                })
+                if (!response.ok) {
+                    throw new Error(`HTTP error status: ${response.status}`)
+                }
+                const session = await response.json()
+                return session
+            } catch (error) {
+                console.error('Error creating session:', error)
+                throw error
+            }
+        }
+
+        async function resolveHandle(handle) {
+            if (handle.startsWith("did:")) { return handle }
+            if (handle.startsWith("@")) { handle = handle.slice(1) }
+            const response = await fetch(`https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${handle}`)
+            if (!response.ok) {
+                document.getElementById("result").textContent = `Error: failed to resolve DID`
+                throw new Error(`Failed to resolve DID: ${await response.text()}`)
+            }
+            return (await response.json()).did
+        }
+
+        async function retrieveHandle(did) {
+            const url = did.startsWith('did:web:')
+                ? `https://${did.split(":").pop()}/.well-known/did.json`
+                : `https://plc.directory/${did}`
+            const response = await fetch(url)
+            const didDoc = await response.json()
+            return didDoc.alsoKnownAs[0].replace("at://", "")
+        }
+
+        async function serviceEndpoint(did) {
+            let response
+            if (did.startsWith(`did:plc`)) {
+                console.log("did:plc")
+                response = await fetch(`https://plc.directory/${did}`)
+            } else {
+                console.log(`did:web`)
+                response = await fetch(`https://${did.slice(8)}/.well-known/did.json`)
+            }
+            console.log(`${did}`)
+            if (!response.ok) {
+                document.getElementById("result").textContent = `Error: failed to retrieve service endpoint`
+                throw new Error(`Failed to retrieve service endpoint: ${await response.text()}`)
+            }
+            services = (await response.json()).service
+            for (const service of services) {
+                if (service.type === "AtprotoPersonalDataServer") {
+                    return service.serviceEndpoint
+                }
+            }
+            document.getElementById("result").textContent = `PDS serviceEndpoint not found in DID document`
+            throw new Error(`PDS serviceEndpoint not found in DID document`)
+        }
+    </script>
+</body>
+
+</html>
