@@ -204,8 +204,9 @@
                 return
             }
             console.log(`Service Endpoint: ${service}`)
+            let session
             try {
-                const session = await getSession(actorId, appPassword, service)
+                session = await getSession(actorId, appPassword, service)
             } catch (e) {
                 document.getElementById("result").textContent = `Error retrieving auth session. ${e}`
                 return
@@ -315,13 +316,14 @@
             const existingKeys = new Set(curVerifyRecords.map(makeKey))
 
             for (const d of didList) {
+                const handle = await retrieveHandle(d)
                 try {
                     const record = {
                         "$type": "app.bsky.graph.verification",
-                        "handle": await retrieveHandle(d),
+                        "handle": handle,
                         "subject": d,
                         "createdAt": new Date().toISOString(),
-                        "displayName": (await getBskyProfile(service, d)).value.displayName
+                        "displayName": (await getBskyProfile(service, d))?.value?.displayName || handle
                     }
                     if (existingKeys.has(`${record.handle}|${record.subject}|${record.displayName}`)) {
                         existingVerifyDids.push(d)
