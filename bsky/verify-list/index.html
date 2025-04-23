@@ -204,9 +204,10 @@
                 return
             }
             console.log(`Service Endpoint: ${service}`)
-            const session = await getSession(actorId, appPassword, service)
-            if (!session) {
-                document.getElementById("result").textContent = `Error retrieving auth session.`
+            try {
+                const session = await getSession(actorId, appPassword, service)
+            } catch (e) {
+                document.getElementById("result").textContent = `Error retrieving auth session. ${e}`
                 return
             }
 
@@ -424,8 +425,8 @@
             return `at://${did}/app.bsky.graph.list/${rkey}`
         }
 
-        async function getSession(username, password) {
-            const url = 'https://bsky.social/xrpc/com.atproto.server.createSession'
+        async function getSession(username, password, service) {
+            const url = `${service}/xrpc/com.atproto.server.createSession`
             const payload = {
                 identifier: username,
                 password: password,
