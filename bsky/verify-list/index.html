@@ -20,7 +20,7 @@
             </div>
 
             <div>
-                <label for="appPassword">App Password:</label>
+                <label for="appPassword">App Password: <a href="https://bsky.app/settings/app-passwords" target="_blank" rel="noopener noreferrer">(?)</a></label>
                 <input type="text" id="appPassword" name="appPassword" placeholder="Enter your app password" required>
             </div>
 
@@ -35,7 +35,7 @@
         </div>
     </form>
 
-    <pre id="result"></pre>
+    <div id="result"></div>
 
     <style>
         #actorForm {
@@ -43,6 +43,7 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            padding-bottom: 0px;
         }
 
         #inputContainer {
@@ -135,12 +136,14 @@
         }
 
         #result {
-            margin-top: 20px;
+            margin-top: 0px;
             font-family: monospace;
+            text-align: center;
         }
 
-        pre {
-            text-align: center;
+        #result p {
+            margin: 0;
+            padding: 0;
         }
 
         b {
@@ -268,23 +271,15 @@
             }
             // i'm not really verifying that the new records were created directly from the applyWrites, but zzzz idc
             let outputHtml = `<div>`
+            outputHtml += `<p><b><a href="https://pdsls.dev/at://${did}/app.bsky.graph.verification" target="_blank" rel="noopener noreferrer">View your verification records</a></b></p><br>`
             if (newVerifyRecords.length > 0) {
-                outputHtml += `<b>DIDs successfully verified:</b>
-                    <ul>
-                        ${newVerifyRecords.map(r => `<li>${r.subject}</li>`).join('')}
-                    </ul>`
+                outputHtml += `<b>DIDs successfully verified:</b><br><br><ul>${newVerifyRecords.map(r => `<li>${r.subject}</li>`).join('')}</ul>`
             }
             if (existingVerifyDids.length > 0) {
-                outputHtml += `<b>DIDs with existing matching verification records:</b>
-                        <ul>
-                            ${existingVerifyDids.map(did => `<li>${did}</li>`).join('')}
-                        </ul>`
+                outputHtml += `<b>DIDs with existing matching verification records:</b><br><br><ul>${existingVerifyDids.map(did => `<li>${did}</li>`).join('')}</ul>`
             }
             if (failedDids.length > 0) {
-                outputHtml += `<b>DIDs that failed to create verification record:</b>
-                        <ul>
-                            ${failedDids.map(did => `<li>${did}</li>`).join('')}
-                        </ul>`
+                outputHtml += `<b>DIDs that failed to create verification record:</b><br><br><ul>${failedDids.map(did => `<li>${did}</li>`).join('')}</ul>`
             }
             if ((newVerifyRecords.length === 0) && (existingVerifyDids.length === 0) && (failedDids.length === 0)) {
                 outputHtml += `<p>Operation completed with no actions</p>`
@@ -488,11 +483,18 @@
 
         async function retrieveHandle(did) {
             const url = did.startsWith('did:web:')
-                ? `https://${did.split(":").pop()}/.well-known/did.json`
+                ? `https://${did.slice(8)}/.well-known/did.json`
                 : `https://plc.directory/${did}`
-            const response = await fetch(url)
-            const didDoc = await response.json()
-            return didDoc.alsoKnownAs[0].replace("at://", "")
+            const { alsoKnownAs: aka } = await (await fetch(url)).json()
+            if (aka) {
+                for (let i = 0; i < aka.length; i++) {
+                    const alias = aka[i]
+                    if (alias.startsWith('at://')) {
+                        return alias.slice(5)
+                    }
+                }
+            }
+            return "INVALID_HANDLE"
         }
 
         async function serviceEndpoint(did) {
