@@ -192,15 +192,20 @@
                 return
             }
 
-            did = await resolveHandle(actorId)
-            if (!did) {
-                document.getElementById("result").textContent = `Error resolving handle.`
+            let did
+            try {
+                did = await resolveHandle(actorId)
+                if (!did) throw new Error("Handle resolution returned null.")
+            } catch (e) {
+                document.getElementById("result").textContent = `Error resolving handle: ${e.message}`
                 return
             }
             console.log(`DID: ${did}`)
-            const service = await serviceEndpoint(did)
-            if (!service) {
-                document.getElementById("result").textContent = `Error retrieving service endpoint.`
+            let service
+            try {
+                service = await serviceEndpoint(did)
+            } catch (e) {
+                document.getElementById("result").textContent = `Error retrieving service endpoint: ${e.message}`
                 return
             }
             console.log(`Service Endpoint: ${service}`)
@@ -212,14 +217,20 @@
                 return
             }
 
-            listUri = await listUrlToUri(listUrl)
-            if (!listUri) {
-                document.getElementById("result").textContent = `Error retrieving list uri.`
+            let listUri
+            try {
+                listUri = await listUrlToUri(listUrl)
+                if (!listUri) throw new Error("Could not parse list URI.")
+            } catch (e) {
+                document.getElementById("result").textContent = `Error retrieving list uri: ${e.message}`
                 return
             }
-            let didList = await getListItems(listUri)
-            if (!didList) {
-                document.getElementById("result").textContent = `Error retrieving list items.`
+            let didList
+            try {
+                didList = await getListItems(listUri)
+                if (!didList) throw new Error("List fetch returned null.")
+            } catch (e) {
+                document.getElementById("result").textContent = `Error retrieving list items: ${e.message}`
                 return
             }
             if (didList.length === 0) {
@@ -229,19 +240,31 @@
             }
             console.log(`DIDs in list: ${didList}`)
 
-            const curVerifyRecords = await getVerifyRecords(did, service)
-            if (!curVerifyRecords || curVerifyRecords === 0) {
-                document.getElementById("result").textContent = `Error gathering current list of verifications.`
+            let curVerifyRecords
+            try {
+                curVerifyRecords = await getVerifyRecords(did, service)
+            } catch (e) {
+                document.getElementById("result").textContent = `Error gathering current list of verifications: ${e.message}`
                 return
             }
 
-            let [newVerifyRecords, existingVerifyDids, failedDids] = await constructNewVerifyRecords(service, did, didList, curVerifyRecords)
+            let newVerifyRecords, existingVerifyDids, failedDids
+            try {
+                [newVerifyRecords, existingVerifyDids, failedDids] = await constructNewVerifyRecords(service, did, didList, curVerifyRecords)
+            } catch (e) {
+                document.getElementById("result").textContent = `Error constructing verification records: ${e.message}`
+                return
+            }
             console.log(`new verify records to attempt: `, newVerifyRecords)
             console.log(`existing dids with verification records:`, existingVerifyDids)
             const chunkSize = 200
             for (let i = 0; i < newVerifyRecords.length; i += chunkSize) {
                 const chunk = newVerifyRecords.slice(i, i + chunkSize)
-                await applyWritesCreate(session, service, chunk)
+                try {
+                    await applyWritesCreate(session, service, chunk)
+                } catch (e) {
+                    console.warn(`applyWrites failed on chunk ${i / chunkSize + 1}:`, e)
+                }
             }
             // i'm not really verifying that the new records were created directly from the applyWrites, but zzzz idc
             let outputHtml = `<div>`
@@ -316,8 +339,8 @@
             const existingKeys = new Set(curVerifyRecords.map(makeKey))
 
             for (const d of didList) {
-                const handle = await retrieveHandle(d)
                 try {
+                    const handle = await retrieveHandle(d)
                     const record = {
                         "$type": "app.bsky.graph.verification",
                         "handle": handle,
