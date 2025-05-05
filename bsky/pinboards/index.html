@@ -290,7 +290,8 @@
                 if (data.posts && data.posts.length > 0) {
                     for (const post of data.posts) {
                         const uri = post?.record?.reply?.parent?.uri
-                        if (uri && post?.record?.text === '📌') {
+                        // jaz's feed doesn't check for post?.record?.text === '📌'
+                        if (uri) {
                             parentUris.push(uri)
                         }
                     }
