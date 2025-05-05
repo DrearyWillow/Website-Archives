@@ -241,18 +241,24 @@
                 return
             }
 
-            const chunkSize = 200
-            for (let i = 0; i < records.length; i += chunkSize) {
-                const chunk = records.slice(i, i + chunkSize)
-                try {
-                    await applyWritesCreate(session, service, chunk)
-                } catch (e) {
-                    console.warn(`applyWrites failed on chunk ${i / chunkSize + 1}:`, e)
-                }
-            }
             let outputHtml = `<div>`
             outputHtml += `<p><b><a href="https://pinboards.jeroba.xyz/profile/${did}/board/${pinboardRkey}" target="_blank" rel="noopener noreferrer">View your pinboard</a></b></p><br>`
             outputHtml += `</div>`
+
+            if (records.length === 0) {
+                outputHtml += `<p>No 📌 posts to add.</p>`
+            } else {
+                const chunkSize = 200
+                for (let i = 0; i < records.length; i += chunkSize) {
+                    const chunk = records.slice(i, i + chunkSize)
+                    try {
+                        await applyWritesCreate(session, service, chunk)
+                    } catch (e) {
+                        console.warn(`applyWrites failed on chunk ${i / chunkSize + 1}:`, e)
+                    }
+                }
+            }
+
             document.getElementById("result").innerHTML = outputHtml
         }
 
