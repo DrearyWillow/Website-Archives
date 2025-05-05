@@ -290,7 +290,7 @@
                 if (data.posts && data.posts.length > 0) {
                     for (const post of data.posts) {
                         const uri = post?.record?.reply?.parent?.uri
-                        if (uri) {
+                        if (uri && post?.record?.text === '📌') {
                             parentUris.push(uri)
                         }
                     }
