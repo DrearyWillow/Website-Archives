@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify a Bsky List</title>
+    <title>Bluesky Pins to Pinboard</title>
     <link rel="icon" type="image/x-icon" href="../../favicon.ico">
     <link href="../../styles.css" rel="stylesheet" type="text/css" media="all">
 </head>
 
 <body style="visibility: hidden;">
-    <h1>Verify a List of Users</h1>
+    <h1>Bluesky Pins to Pinboard</h1>
 
     <form id="actorForm">
         <div id="inputContainer">
@@ -171,6 +171,10 @@
                 : document.addEventListener('DOMContentLoaded', cb)
         }
         domReady(() => { document.body.style.visibility = 'visible' })
+        document.getElementById("actorForm").addEventListener("submit", (event) => {
+            event.preventDefault()
+            pinsToPinboard()
+        })
 
         async function pinsToPinboard() {
             event.preventDefault()
