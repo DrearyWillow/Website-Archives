@@ -171,13 +171,9 @@
                 : document.addEventListener('DOMContentLoaded', cb)
         }
         domReady(() => { document.body.style.visibility = 'visible' })
-        document.getElementById("actorForm").addEventListener("submit", (event) => {
-            event.preventDefault()
-            pinsToPinboard()
-        })
 
         async function pinsToPinboard() {
-            // event.preventDefault()
+            event.preventDefault()
             document.getElementById("result").textContent = `Gathering data...`
             const actorId = document.getElementById("actorId").value
             if (!actorId) {
