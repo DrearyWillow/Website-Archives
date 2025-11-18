@@ -9,6 +9,30 @@
 #f3adc6 - light pink (lavender pink)
 #C41BAE - purple (steel pink)
 #5e5e5e - medium grey (davy's gray)
+--maintext:     #f2c0d8;
+--grayedout:    #d9dcd6;
+--standout:     #f891c1;
+--link:         #f891c1;
+--statok:       #f891c1;
+--statnok:      #e54980;
+--footer:       #f2c0d8;
+--maintitle:    #f891c1;
+--boxtitle:     #f2c0d8;
+--alttitle:     #f2c0d8;
+--bodybg:       #0B0C0D;
+--boxbg:        #181818;
+--tabbg:        #181818;
+--secbg:        #181818;
+--secborder:    #e54980;
+--border:       #e54980;
+--diffadd:      #f2c0d8;
+--diffdel:      #f2c0d8;
+--warnbg:       #5d182b;
+--warnborder:   #e54980;
+--noticebg:     #141414;
+--noticeborder: #e54980;
+--blendbg:      #181818;
+--background:   #0B0C0D;
 */
 
 /* =========
@@ -20,9 +44,9 @@
 :root {
 	--text: #d9dcd6; 				/* #d9dcd6 */
 	--background: #181a1b; 			/* #181a1b */
-	--header: 196, 27, 174; 		/* #c41bae */
+	--header: 194, 43, 89; 		/* (156,31,71) #9c1f4b (229,73,128) (196, 27, 174) #c41bae */
 	--border: #979797; 				/* #979797 */
-	--accent: #0085b9; 				/* #0085b9 */
+	--accent: #f891c1; 				/* #0085b9 */
 	--highlight: #e54980;			/* #e54980 */
 	--button-border: 94, 94, 94;	/* #5e5e5e */
 }
@@ -61,7 +85,7 @@ nav.pol-nav ul {
 
 nav.pol-nav ul li {
     display: inline-block;
-    margin: .1rem 0;
+    margin: .2rem 0;
 }
 
 nav.pol-nav ul li a {
