@@ -269,6 +269,27 @@ hr {
     background-color: rgba(var(--header), 0.35);
 }
 
+.social-btn {
+    margin-top: .25rem;
+}
+
+.social-btn a {
+    line-height: 2rem;
+    font-size: 1rem;
+    font-weight: 550;
+    text-decoration: none;
+    padding: .2rem .7rem;
+    border-radius: 2rem;
+    border: 2px solid rgba(var(--button-border), 0.87);
+}
+
+.social-btn a:hover, .social-btn a:active {
+    color: var(--accent);
+    background-color: rgba(var(--header), 0.30);
+    /*
+    background-color: #5a5a5a30; */
+}
+
 /* images */
 
 img {
